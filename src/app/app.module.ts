@@ -3,53 +3,41 @@ para el Framework y varios módulos necesarios
  IMPORTANTE.- Todos los componentes creados en el proyecto deben registrarse aquí para que funcionens de manera global en la aplicación
 */
 
-/* ++++++++++ COMPONENTES DEL SISTEMA ++++++++++ */
+// ++++++++++ COMPONENTES DEL SISTEMA ++++++++++
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-/* Importamos las constantes que declaramos en el "app.routes.ts" */
+// Importamos las constantes que declaramos en el "app.routes.ts"
 import { APP_ROUTES } from './app.routes';
 
 
-/* ++++++++++ COMPONENTES CREADOS POR NOSOTROS ++++++++++ */
+// ++++++++++ COMPONENTES CREADOS POR NOSOTROS ++++++++++
+import { PageModule } from './pages/pages.module';
+
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { ProgressComponent } from './pages/progress/progress.component';
-import { Graficas1Component } from './pages/graficas1/graficas1.component';
-import { HeaderComponent } from './shared/header/header.component';
-import { SidebarComponent } from './shared/sidebar/sidebar.component';
-import { BreadcrumbsComponent } from './shared/breadcrumbs/breadcrumbs.component';
-import { NopagefoundComponent } from './shared/nopagefound/nopagefound.component';
-import { PagesComponent } from './pages/pages.component';
 import { RegisterComponent } from './login/register.component';
 
-/* Crea un Módulo, en este caso el Módulo Principal */
+
+// Crea un Módulo, en este caso el Módulo Principal
 @NgModule({
-  /* Aquí se declaran todos los COMPONENTES, DIRECTIVAS, PIPES para registrarlos y poder utilzarlos en la Aplicación de forma global */
+  // Aquí se declaran todos los COMPONENTES, DIRECTIVAS, PIPES para registrarlos y poder utilzarlos en la Aplicación de forma global
   declarations:
   [
     AppComponent,
     LoginComponent,
-    NopagefoundComponent,
-    DashboardComponent,
-    ProgressComponent,
-    Graficas1Component,
-    HeaderComponent,
-    SidebarComponent,
-    BreadcrumbsComponent,
-    PagesComponent,
     RegisterComponent
   ],
-  /* Carga diferentes módulos, funcionalidades y servicios del framework para cargarlos en la Aplicación */
+  // Carga diferentes módulos, funcionalidades y servicios del framework para cargarlos en la Aplicación
   imports:
   [
     BrowserModule,
-    APP_ROUTES
+    APP_ROUTES,
+    PageModule
   ],
-  /* Se cargan ciertos Servicios, Configuraciones */
+  // Se cargan ciertos Servicios, Configuraciones
   providers: [],
-  /* Se indica el componente principal con el que la aplicación va a lanzarse */
+  // Se indica el componente principal con el que la aplicación va a lanzarse
   bootstrap: [AppComponent]
 })
 export class AppModule { }

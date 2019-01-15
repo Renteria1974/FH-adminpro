@@ -1,0 +1,36 @@
+<!-- ============================================================== -->
+<!-- Main wrapper - Estilo que puedes encontrar en: pages.scss -->
+<!-- ============================================================== -->
+<div id="main-wrapper">
+    <!-- Encabezado -->
+    <app-header></app-header>
+
+    <!-- SideBar -->
+    <app-sidebar></app-sidebar>
+
+    <!-- Page Wrapper  -->
+    <div class="page-wrapper">
+        <!-- Container fluid  -->
+        <div class="container-fluid">
+            <!-- BreadCrumbs -->
+            <app-breadcrumbs></app-breadcrumbs>
+
+            <!-- Al seleccionar una ruta en la URL del Navegador
+            dicha Ruta está asociada a un componente y dicho Componente se cargará dentro de esta etiqueta -->
+            <!-- Dentro de esta etiqueta se va a cargar el componente que actualmente le estemos indicando en el "path" de la URL,el componente asociado a la ruta actual -->
+            <router-outlet></router-outlet>
+
+            <!-- Start Page Content -->
+            <!-- <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            This is some text within a card block.
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+        </div>
+    </div>
+
+</div>

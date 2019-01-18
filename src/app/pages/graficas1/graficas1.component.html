@@ -1,3 +1,63 @@
-<p>
-  graficas1 works!
-</p>
+<!-- ++++++++++++++ -->
+<!-- GRAFICAS 1 y 2 -->
+<!-- ++++++++++++++ -->
+<div class="row">
+    <!-- GRAFICA 1 -->
+    <div class="col-6">
+        <!-- Contenedor de la Tarjeta -->
+        <div class="card">
+            <div class="card-body">
+                <!-- Título del Gráfico -->
+                <h4 class="card-title">{{ graficos.grafico1.leyenda }}</h4>
+                <!-- Componente del Gráfica de "DONA" -->
+                <app-graficadona nombgraf="Gráfica 1" [chartLabels]="graficos.grafico1.labels" [chartData]="graficos.grafico1.data" chartType="doughnut">
+                </app-graficadona>
+            </div>
+        </div>
+    </div>
+    <!-- GRAFICA 2 -->
+    <div class="col-6">
+        <!-- Contenedor de la Tarjeta -->
+        <div class="card">
+            <div class="card-body">
+                <!-- Título del Gráfico -->
+                <h4 class="card-title">{{ graficos.grafico2.leyenda }}</h4>
+                <!-- Componente del Gráfica de "DONA" -->
+                <app-graficadona nombgraf="Gráfica 2" [chartLabels]="graficos.grafico2.labels" [chartData]="graficos.grafico2.data" chartType="doughnut">
+                </app-graficadona>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ++++++++++++++ -->
+<!-- GRAFICAS 3 y 4 -->
+<!-- ++++++++++++++ -->
+<div class="row">
+    <!-- GRAFICA 3 -->
+    <div class="col-6">
+        <!-- Contenedor de la Tarjeta -->
+        <div class="card">
+            <div class="card-body">
+                <!-- Título del Gráfico -->
+                <h4 class="card-title">{{ graficos.grafico3.leyenda }}</h4>
+                <!-- Componente del Gráfica de "DONA" -->
+                <app-graficadona nombgraf="Gráfica 3" [chartLabels]="graficos.grafico3.labels" [chartData]="graficos.grafico3.data" chartType="doughnut">
+                </app-graficadona>
+            </div>
+        </div>
+    </div>
+    <!-- GRAFICA 4 -->
+    <div class="col-6">
+        <!-- Contenedor de la Tarjeta -->
+        <div class="card">
+            <div class="card-body">
+                <!-- Título del Gráfico -->
+                <h4 class="card-title">{{ graficos.grafico4.leyenda }}</h4>
+                <!-- Componente del Gráfica de "DONA" -->
+                <app-graficadona nombgraf="Gráfica 4" [chartLabels]="graficos.grafico4.labels" [chartData]="graficos.grafico4.data" chartType="doughnut">
+                </app-graficadona>
+            </div>
+        </div>
+    </div>
+</div>

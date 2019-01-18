@@ -6,6 +6,8 @@ para el Framework y varios módulos necesarios
 // ++++++++++ COMPONENTES DEL SISTEMA ++++++++++
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { AppComponent } from './app.component';
 
 // Importamos las constantes que declaramos en el "app.routes.ts"
 import { APP_ROUTES } from './app.routes';
@@ -13,8 +15,6 @@ import { APP_ROUTES } from './app.routes';
 
 // ++++++++++ COMPONENTES CREADOS POR NOSOTROS ++++++++++
 import { PageModule } from './pages/pages.module';
-
-import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './login/register.component';
 
@@ -26,14 +26,15 @@ import { RegisterComponent } from './login/register.component';
   [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent    
   ],
   // Carga diferentes módulos, funcionalidades y servicios del framework para cargarlos en la Aplicación
   imports:
   [
     BrowserModule,
     APP_ROUTES,
-    PageModule
+    PageModule,
+    FormsModule
   ],
   // Se cargan ciertos Servicios, Configuraciones
   providers: [],

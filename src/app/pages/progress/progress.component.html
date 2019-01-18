@@ -1,3 +1,53 @@
-<p>
-  progress works!
-</p>
+<!-- Contenedor de la Barra de Progreso  -->
+<div class="row">
+    <div class="col-12">
+        <!-- Contenedor tipo CARD  -->
+        <div class="card">
+            <div class="card-body">
+                <!-- Titulo del Card  -->
+                <h5 class="card-title">Barra de Progreso</h5>
+                <!-- Barra de  Progreso 1 -->
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" [attr.ariaValueNow]="progreso1" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" [style.width]="progreso1 + '%'">
+                    </div>
+                </div>
+                <br>
+                <!-- Barra de  Progreso 2 -->
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" [attr.ariaValueNow]="progreso2" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" [style.width]="progreso2 + '%'">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Aqui mandamos llamar al componente "incrementador" (con la etiqueta "<app-incrementador></app-incrementador>")  -->
+<div class="row">
+    <!-- Tarjeta 1  -->
+    <div class="col-6">
+        <!-- Contenedor tipo CARD  -->
+        <div class="card">
+            <div class="card-body">
+                <!-- <app-incrementador></app-incrementador> =  Etiqueta del componente "incrementador.component"  -->
+                <!-- nombre="Progreso Azul"     = es la variable que se manda al componente "incrementadorcomponent" (en dicho componente tiene el nombre de "leyenda")  -->
+                <!--                                sólo mandamos un string, que es "progresso azul" -->
+                <!-- [progreso]=progreso1       = La variable se pone entre "[]" para poder enviar un número, caso contario enviaríamos un string como en la variable "nombre" -->
+                <!-- (cambioValor)              = Es el evento de la variable "cambioValor" que se declara en el componente "incrementador.component"  -->
+                <!-- "progreso1 = $event"       = la variable "progreso1" es igual al valor que se está recibiendo del evento "$event"  -->
+                <app-incrementador (cambioValor)="progreso1 = $event" nombre="Progress Azul" [progreso]=progreso1></app-incrementador>
+            </div>
+        </div>
+    </div>
+    <!-- Tarjeta 2  -->
+    <div class="col-6">
+        <!-- Contenedor tipo CARD  -->
+        <div class="card">
+            <div class="card-body">
+                <!-- Etiqueta del componente "incrementador.component" -->
+                <!-- leyenda = es la variable que se manda al componente "incrementador" -->
+                <app-incrementador (cambioValor)="progreso2 = $event" nombre="Progress Verde" [progreso]=progreso2></app-incrementador>
+            </div>
+        </div>
+    </div>
+</div>

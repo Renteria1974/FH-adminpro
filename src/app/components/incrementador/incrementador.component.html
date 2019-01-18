@@ -1,0 +1,23 @@
+<!-- Leyenda de la barra de botones -->
+<h3>{{ leyenda }}</h3>
+
+<!-- Contenedor de Botones -->
+<div class="input-group">
+    <!-- Botón "-" -->
+    <span class="input-group-btn">
+      <button class="btn btn-primary" type="button" (click)="cambiarValor(-5)">
+        <i class="mdi mdi-minus"></i>
+      </button>
+    </span>
+    <!-- Campo de texto "progreso" -->
+    <!-- #txtProgress         = Nombre que le damos parap oder hacerreferencia con el decorador "@ViewChild" -->
+    <!-- (ngModelChange)      = Evento generado por el campo input -->
+    <!-- "onChanges($event)"  = Función que recibe como evento el nuevo valor del campo input que en este caso es un número -->
+    <input #txtProgress type="number" class="form-control" name="progreso" [(ngModel)]="progreso" (ngModelChange)="onChanges($event)" min="1" max="100">
+    <!-- Botón "+" -->
+    <span class="input-group-btn">
+      <button class="btn btn-primary" type="button" (click)="cambiarValor(+5)">
+        <i class="mdi mdi-plus"></i>
+      </button>
+    </span>
+</div>

@@ -17,6 +17,7 @@ import { PagesComponent } from './pages.component';
 import { PAGES_ROUTES } from './pages.routes';
 import { IncrementadorComponent } from '../components/incrementador/incrementador.component';
 import { GraficadonaComponent } from '../components/graficadona/graficadona.component';
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
 
 
 // Crea un Módulo
@@ -29,7 +30,8 @@ import { GraficadonaComponent } from '../components/graficadona/graficadona.comp
      Graficas1Component,
      PagesComponent,
      IncrementadorComponent,
-     GraficadonaComponent
+     GraficadonaComponent,
+     AccountSettingsComponent
   ],
   // Para poder usar estas páginas (las declaradas en "declarations") por ostros componentes que se encuentran fuera de este módulo
   exports:

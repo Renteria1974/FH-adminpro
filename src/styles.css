@@ -1,1 +1,6 @@
-/* You can add global styles to this file, and also import other style files */
+/* ID del componente "account-settings.html" */
+
+#themecolors a {
+    /* Al pasar el ratón sobre el enlace "a" que sep onga el puntero de "manita" */
+    cursor: pointer;
+}

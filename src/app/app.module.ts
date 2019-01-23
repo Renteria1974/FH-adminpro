@@ -13,10 +13,15 @@ import { AppComponent } from './app.component';
 import { APP_ROUTES } from './app.routes';
 
 
+// ++++++++++ SERVICIOS CREADOS POR NOSOTROS ++++++++++
+import { ServiceModule } from './services/service.module';
+
 // ++++++++++ COMPONENTES CREADOS POR NOSOTROS ++++++++++
 import { PageModule } from './pages/pages.module';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './login/register.component';
+
+
 
 
 // Crea un Módulo, en este caso el Módulo Principal
@@ -26,7 +31,7 @@ import { RegisterComponent } from './login/register.component';
   [
     AppComponent,
     LoginComponent,
-    RegisterComponent    
+    RegisterComponent
   ],
   // Carga diferentes módulos, funcionalidades y servicios del framework para cargarlos en la Aplicación
   imports:
@@ -34,10 +39,13 @@ import { RegisterComponent } from './login/register.component';
     BrowserModule,
     APP_ROUTES,
     PageModule,
-    FormsModule
+    FormsModule,
+    ServiceModule  // Contiene el allamado a los servicios que estan dentro del a carpeta "services"
   ],
   // Se cargan ciertos Servicios, Configuraciones
-  providers: [],
+  providers:
+  [
+  ],
   // Se indica el componente principal con el que la aplicación va a lanzarse
   bootstrap: [AppComponent]
 })

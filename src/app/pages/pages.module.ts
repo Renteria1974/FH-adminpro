@@ -18,6 +18,8 @@ import { PAGES_ROUTES } from './pages.routes';
 import { IncrementadorComponent } from '../components/incrementador/incrementador.component';
 import { GraficadonaComponent } from '../components/graficadona/graficadona.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
+import { PromesasComponent } from './promesas/promesas.component';
+import { RxjsComponent } from './rxjs/rxjs.component';
 
 
 // Crea un Módulo
@@ -31,7 +33,9 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
      PagesComponent,
      IncrementadorComponent,
      GraficadonaComponent,
-     AccountSettingsComponent
+     AccountSettingsComponent,
+     PromesasComponent,
+     RxjsComponent
   ],
   // Para poder usar estas páginas (las declaradas en "declarations") por ostros componentes que se encuentran fuera de este módulo
   exports:

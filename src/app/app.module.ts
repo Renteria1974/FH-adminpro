@@ -1,7 +1,7 @@
-/* Módulo Principal donde van a cargarse trodos los Componentes, directivas, diversas configuraciones
-para el Framework y varios módulos necesarios
- IMPORTANTE.- Todos los componentes creados en el proyecto deben registrarse aquí para que funcionens de manera global en la aplicación
-*/
+// Módulo Principal donde van a cargarse trodos los Componentes, directivas, diversas configuraciones
+// para el Framework y varios módulos necesarios
+// IMPORTANTE.- Todos los componentes creados en el proyecto deben registrarse aquí para que funcionens de manera global en la aplicación
+
 
 // ++++++++++ COMPONENTES DEL SISTEMA ++++++++++
 import { BrowserModule } from '@angular/platform-browser';
@@ -16,11 +16,11 @@ import { APP_ROUTES } from './app.routes';
 // ++++++++++ SERVICIOS CREADOS POR NOSOTROS ++++++++++
 import { ServiceModule } from './services/service.module';
 
+
 // ++++++++++ COMPONENTES CREADOS POR NOSOTROS ++++++++++
 import { PageModule } from './pages/pages.module';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './login/register.component';
-
 
 
 

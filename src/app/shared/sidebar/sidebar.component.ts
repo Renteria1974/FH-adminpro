@@ -3,7 +3,7 @@
 import { Component, OnInit } from '@angular/core';
 
 // ++++ SERVICIOS CREADOS POR NOSOTROS
-import { SidebarService } from '../../services/service.index';
+import { SidebarService , UsuarioService } from '../../services/service.index';
 
 
 // El Decorador lo que hace es aportar una Funcionalidad a una clase (que se define abajo), darle unas
@@ -25,9 +25,13 @@ export class SidebarComponent implements OnInit
   // CONSTRUCTOR : Es el primer método que se lanza al instanciar un objeto o instanciar la clase. Al llamar al componente
   // lo primero en ejecutarse es el Constructor.
   // Se utiliza para inicializar las propiedades de la clase, asignarles un valor o hacer una pequeña configuración
-  constructor( public _sidebar: SidebarService)
+  constructor(
+    public _sidebar: SidebarService,
+    public _servicioUsuario: UsuarioService
+    )
   {
   }
+
 
 
   // Se ejecuta cuando se carga el componente y se muestra en pantalla, sólo se ejecuta una vez: al cargar el componente por primera vez

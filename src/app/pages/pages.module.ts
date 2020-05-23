@@ -4,8 +4,9 @@
 // ++++++++++ COMPONENTES DEL SISTEMA ++++++++++
 // Indispensable para que funcione el "two way data-binding"
 import { FormsModule } from '@angular/forms';
-
+// Para el manejo de las gráficas
 import { ChartsModule } from 'ng2-charts';
+
 import { NgModule } from '@angular/core';
 
 // ++++++++++ COMPONENTES CREADOS POR NOSOTROS ++++++++++
@@ -50,10 +51,10 @@ import { RxjsComponent } from './rxjs/rxjs.component';
   [
     SharedModule,   // Hace referencia a la clase creada en el archivo "share.module.ts" dentro de la carpeta "shared"
     PAGES_ROUTES,   // Constante creada en el archivo "pages.routes.ts"
-    FormsModule,
-    ChartsModule    // Param anejar las gráficas con el "ng2-charts"  
+    FormsModule,    // Indispensable para que funcione el "two way data-binding"
+    ChartsModule    // Param anejar las gráficas con el "ng2-charts"
   ],
 
 })
 
-export class PageModule { }
+export class PagesModule { }

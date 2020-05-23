@@ -9,10 +9,12 @@
         <i class="mdi mdi-minus"></i>
       </button>
     </span>
-    <!-- Campo de texto "progreso" -->
-    <!-- #txtProgress         = Nombre que le damos parap oder hacerreferencia con el decorador "@ViewChild" -->
-    <!-- (ngModelChange)      = Evento generado por el campo input -->
-    <!-- "onChanges($event)"  = Función que recibe como evento el nuevo valor del campo input que en este caso es un número -->
+    <!-- Campo de texto "progreso"
+    #txtProgress         = Nombre que le damos para poder hacer referencia con el decorador "@ViewChild"
+    (ngModelChange)      = Evento generado por el campo input
+    "onChanges($event)"  = Función que recibe como evento el nuevo valor del campo input que en este caso es un número
+                           Es un evento que emiten todos los "ngmodel" cuando cambian sus valores
+    -->
     <input #txtProgress type="number" class="form-control" name="progreso" [(ngModel)]="progreso" (ngModelChange)="onChanges($event)" min="1" max="100">
     <!-- Botón "+" -->
     <span class="input-group-btn">

@@ -4,3 +4,8 @@
     /* Al pasar el ratón sobre el enlace "a" que sep onga el puntero de "manita" */
     cursor: pointer;
 }
+
+.pointer
+{
+  cursor: pointer;  /* Cursor de tipo "manita" */
+}

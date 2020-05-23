@@ -1,9 +1,11 @@
 // ++++ Este es el COMPONENTE Principal de la Aplicación, es el primer COMPONENTE en cargarse y da soporte a otros tantos COMPONENTES ++++
 
+// ++++++++++ COMPONENTES DEL SISTEMA ++++++++++
 // Importamos el Móduo COMPONENT que permite crear un Componente y poder hacer uso del Decorador, Etc.
 import { Component } from '@angular/core';
 
-// SERVICIOS CREADOS POR NOSOTROS
+
+// ++++++++++ SERVICIOS CREADOS POR NOSOTROS ++++++++++
 import { SettingsService } from './services/service.index';
 
 
@@ -27,6 +29,9 @@ export class AppComponent
   // CONSTRUCTOR : Es el primer método que se lanza al instanciar un objeto o instanciar la clase. Al llamar al componente lo primero
   //              en ejecutarse es el Constructor. Se utiliza para inicializar las propiedades de la clase, asignarles un valor o hacer
   //             una pequeña configuración
+
+  // "public _ajustes: SettingsService" = Inyectamos el servicio "settings.service.ts" que contiene la configuración de color de fondo
+  //                                       del Encabezado del Menú Principal que definimos
   constructor( public _ajustes: SettingsService)
   {
 

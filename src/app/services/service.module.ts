@@ -1,16 +1,19 @@
-// Módulo donde van a cargarse trodos los Componentes, directivas, diversas configuraciones para el Framework y varios módulos necesarios
+// Módulo donde van a cargarse todos los Componentes, directivas, diversas configuraciones para el Framework y varios módulos necesarios
 
-// ++++ COMPONENTES DEL SISTEMA
+// ++++++++++ MÓDULOS DEL SISTEMA ++++++++++
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
-
-// ++++ SERVICIOS CREADOS POR NOSOTROS
+// ++++++++++ SERVICIOS CREADOS POR NOSOTROS ++++++++++
+// Son los servicios que tenemos concentarados en el archivo "service.index.ts"
 import {
   SettingsService,
   SidebarService,
-  SharedService
- } from './service.index';
+  SharedService,
+  UsuarioService,
+  LoginGuardGuard
+} from './service.index';
 
 
 // CREA UN MÓDULO
@@ -24,7 +27,8 @@ import {
   // Carga diferentes módulos, funcionalidades y servicios del framework para cargarlos en la Aplicación
   imports:
   [
-    CommonModule
+    CommonModule,
+    HttpClientModule
   ],
 
   // Se cargan ciertos servicios, configuraciones
@@ -32,7 +36,9 @@ import {
   [
     SettingsService,
     SidebarService,
-    SharedService
+    SharedService,
+    UsuarioService,
+    LoginGuardGuard
   ]
 })
 

@@ -22,7 +22,11 @@ export class ProgressComponent implements OnInit
   // CONSTRUCTOR : Es el primer método que se lanza al instanciar un objeto o instanciar la clase. Al llamar al componente
   // lo primero en ejecutarse es el Constructor.
   // Se utiliza para inicializar las propiedades de la clase, asignarles un valor o hacer una pequeña configuración
-  constructor() { }
+  constructor()
+  {
+
+  }
+
 
   // Se ejecuta cuando se carga el componente y se muestra en pantalla, sólo se ejecuta una vez: al cargar el componente por primera vez
   // se ejecuta despues de "ngOnChanges"

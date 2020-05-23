@@ -19,7 +19,7 @@ import { retry, map, filter } from 'rxjs/operators';
 // aunque por buena costumbre de programación hacer buen uso de ese tipo de declaraciones
 export class RxjsComponent implements OnInit, OnDestroy
 {
-  // Creamos una propiedad que se peda usar para mantener una referencia a el observador que está ejecutándose
+  // Creamos una propiedad que se pueda usar para mantener una referencia a el observador que está ejecutándose
   subscripcion: Subscription;
 
 
@@ -48,8 +48,6 @@ export class RxjsComponent implements OnInit, OnDestroy
   }
 
 
-
-
   // Se ejecuta cuando se carga el componente y se muestra en pantalla, sólo se ejecuta una vez: al cargar el componente por primera vez
   // se ejecuta despues de "ngOnChanges"
   ngOnInit()
@@ -63,7 +61,7 @@ export class RxjsComponent implements OnInit, OnDestroy
   {
     console.log('La página se está cerrando.....');
 
-    // Cerramos el "observador", dejará de "escuchar"
+    // Cerramos el "observador", dejará de "escuchar" una vez que cerremos la página actual (componente)
     this.subscripcion.unsubscribe();
   }
 
@@ -106,13 +104,13 @@ export class RxjsComponent implements OnInit, OnDestroy
         // }
       }, 1000);
     }).pipe(
-      // Este operador recibe una función que permite transformar la "data"
+      // El operador "map" recibe una función que permite transformar la "data"
       // "resp" = Recibe un parámetro, es la respuesta en bruto, contiene el valor que nos interesa
       map( resp => resp.valor ),
 
       // Recibe como argumento una función
       // Forzosamente debe regresar "true" o "false", si es "true" se muestra el resultado, si es "false" no se muestra
-      // Recibe 2 argumentos: "valor" (o la respuesta) y una posición "index" ( el núm. de veces que se ha llamado a este filter)
+      // La función recibe 2 argumentos: "valor" (o la respuesta) y una posición "index" ( el núm. de veces que se ha llamado a este filter)
       filter( (  valor, index) => {
         // console.log( 'Filter: ', valor, index );
         // Numero impar

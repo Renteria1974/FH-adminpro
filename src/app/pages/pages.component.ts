@@ -1,8 +1,12 @@
-// ++++ COMPONENTES DEL SISTEMA ++++
+// ++++++++++ COMPONENTES DEL SISTEMA ++++++++++
 // Importamos el Móduo COMPONENT que nos permite crear un Componente y poder hacer uso del Decorador, Etc.
 import { Component, OnInit } from '@angular/core';
-// Esta función se declaró en el archivo "custom.js", sirve para corregir un error de carga de páginas
+
+
+// Aquí mandamos llamar a la función "init_plugins" que declaramos en el archivo "custom.js" y
+// que nos sirve para corregir un error que se nos estaba presentando con el "sidebar"
 declare function init_plugins();
+
 
 // El Decorador lo que hace es aportar una Funcionalidad a una clase (que se define abajo), darle unas
 // características concretas que modifican su comportamiento

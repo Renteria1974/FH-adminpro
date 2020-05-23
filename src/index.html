@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     <title>Adminpro</title>
 
+    <!-- Favicon que aparece en la parte superior del SIDEBAR -->
     <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
 
     <!-- Bootstrap Core CSS -->
@@ -14,7 +15,7 @@
     <!-- Archivo Personalziado CSS -->
     <link href="assets/css/style.css" rel="stylesheet">
 
-    <!-- Para cambiar el color del fondo del Menu Principal -->
+    <!-- Para cambiar el color del fondo del Encabezado del Menu Principal -->
     <link id="tema" id="theme" rel="stylesheet">
 
     <!-- Esta es la etiqueta más importante, más fundamental, sin ella el ROUTER y su Configuración NUNCA VA A FUNCIONAR -->
@@ -25,6 +26,14 @@
 
     <!-- Favicon de Nuestra Aplicación -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <!-- Google (Para usar la funcionalidad "Sign-In")
+      Se elimina "async defer" se elimina para que cargue con un <script> (normal), es decir, que el análisis HTML se detenga,
+         se descarga el archivo js (si es un script externo), se ejecuta el script y después se reanuda el análisis HTML.
+    -->
+    <script src="https://apis.google.com/js/platform.js"></script>
+    <meta name="google-signin-client_id" content="1015315501689-0ps2tmu3rpp9auqdgdk3600imp029blb.apps.googleusercontent.com">
+
 </head>
 
 <body class="fix-header card-no-border fix-sidebar">
@@ -35,7 +44,7 @@
     <div class="preloader">
         <div class="loader">
             <div class="loader__figure"></div>
-            <p class="loader__label">AdminPro</p>
+            <p class="loader__label">GURREN</p>
         </div>
     </div>
 

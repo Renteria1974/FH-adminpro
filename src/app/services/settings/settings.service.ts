@@ -6,14 +6,13 @@
 
 // Importamos un Decorador Inyectable, para poder inyectar nuestra clase mediante la inyección de dependencias
 // en los componentes y en diferentes sitios
-import { Injectable, Inject } from '@angular/core';
-import { DOCUMENT } from '@angular/platform-browser';
+import { Injectable } from '@angular/core';
 
 
 // Decorador Inyectable. Definición del Componente. Con las "{}" se le pasa un Objeto JSON, no se cierra con ";" porque no es una función
 // El Decorador lo que hace es aportar una Funcionalidad a una clase (que se define abajo), darle unas características concretas
-// que modifican  su comportamiento, en pocas palabras, con esta declaración indicamos queesta clase la vamso a poder inyectar
-// como servicio en cualquier componente
+// que modifican  su comportamiento, en pocas palabras, con esta declaración indicamos queesta clase la vamos a poder inyectar
+// (de forma automática) como servicio en cualquier componente de la aplicación sin que se tenga que añadir en "app.module.ts"
 @Injectable({
   providedIn: 'root'
 })
@@ -29,7 +28,7 @@ export class SettingsService
   // y tambien saber que tema está seleccionado
   ajustes: Ajustes =
   {
-    temaUrl: 'assets/css/colors/default.css',  // Tema por defecto que tendrá el menú Prncipal
+    temaUrl: 'assets/css/colors/default.css',  // Tema por defecto que tendrá el Encabezado del menú Prncipal
     tema: 'default'                            // Nombre del tema
   };
 
@@ -37,10 +36,11 @@ export class SettingsService
   // CONSTRUCTOR : Es el primer método que se lanza al instanciar un objeto o instanciar la clase. Al llamar al componente
   // lo primero en ejecutarse es el Constructor.
   // Se utiliza para inicializar las propiedades de la clase, asignarles un valor o hacer una pequeña configuración
-  constructor( @Inject(DOCUMENT) private _document )
+  constructor( )
   {
-    // Cargamos los valores de configuración (del Menú Principal) que tenemos en el LocalStorage
-    // Se carga al arrancar la aplicación ya que se puso como parámetro en el "constructor" del "app.component.ts"
+    // Cargamos los valores de configuración (del Encabezado del Menú Principal) que tenemos en el LocalStorage
+    // Se carga al arrancar la aplicación ya que este servcicio se "inyectó" en el "constructor" del "app.component.ts"
+    // y esos dispara automáticamente este constructor del servicio
     this.cargarAjustes();
   }
 
@@ -54,17 +54,17 @@ export class SettingsService
   }
 
 
-  // Método que Carga los ajustes (que hicimos")
+  // Método que Carga los ajustes (que hicimos) que tenemos en el LocalStorage
   cargarAjustes()
   {
     // Validamos que tengamos el item "ajustes" en el LocalStorage
     if ( localStorage.getItem( 'ajustes' ) )
     {
       // Asignamos a nuestra variable el valor que almacenamos en el LocalStorage
-      // Tenemos que convertirlo a formato JSON
+      // Tenemos que convertirlo a formato JSON porque nuestra variable "ajustes" es del tipo JSON
       this.ajustes = JSON.parse(localStorage.getItem( 'ajustes' ));
 
-      // Aquí cargamos la configuración del Menú Principal
+      // Aquí cargamos la configuración del Encabezado del Menú Principal
       this.aplicarTema( this.ajustes.tema );
     }
     else
@@ -75,17 +75,11 @@ export class SettingsService
   }
 
 
-  // Método para cargar el tema (color de fondo) del Menú Principal
+  // Método para cargar el tema (color de fondo) del Encabezado del Menú Principal
   aplicarTema( tema: string)
   {
      // Variable que contiene el path del archivo de color de fondo
     let url = `assets/css/colors/${ tema }.css`;
-
-    // "this._document.getElementById('tema')" = Mandamos llamar al elemento del DOM cuyo ID es "tema" (lógicamente debemos tener cuidado
-    //                                           en no tener retido ese nombre)
-    // "setAttribute('href', url )" = Al elemento seleccionado se le modifica el atributo "href" por el valor que contiene la variable "url"
-    this._document.getElementById('tema').setAttribute('href', url );
-
 
     // ++ MANDAR LOS VALORES DE CONFIGURACIÓN AL LOCALSTORAGE ++
     // ------------------------------------------------------------
@@ -100,7 +94,7 @@ export class SettingsService
 }
 
 
-// Interfaz que va a ayudar a restringir la forma de trabajar los ajustes, definir que tipo de información va a permitirse ne los ajustes
+// Interfaz que va a ayudar a restringir la forma de trabajar los ajustes, definir que tipo de información va a permitirse en los ajustes
 interface Ajustes
 {
   temaUrl: string;

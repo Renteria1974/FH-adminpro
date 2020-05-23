@@ -3,7 +3,7 @@
 // de la arquitectura de una Aplicación que nos va a permitir separar un poco de Lógica del componente sobre todo en trabajo
 // con APIS, HTTP, Funcionalidades complejas y mediante la inyección de dependencias podemos utilizarlos en otros componentes principales
 
-// ++++ SERVICIOS DLE SISTEMA ++++
+// ++++ SERVICIOS DEL SISTEMA ++++
 // Importamos un Decorador Inyectable, para poder inyectar nuestra clase mediante la inyección de dependencias
 // en los componentes y en diferentes sitios
 import { Injectable } from '@angular/core';
@@ -11,7 +11,7 @@ import { Injectable } from '@angular/core';
 // Decorador Inyectable. Definición del Componente. Con las "{}" se le pasa un Objeto JSON, no se cierra con ";" porque no es una función
 // El Decorador lo que hace es aportar una Funcionalidad a una clase (que se define abajo), darle unas características concretas
 // que modifican  su comportamiento, en pocas palabras, con esta declaración indicamos queesta clase la vamso a poder inyectar
-// como servicio en cualquier componente
+// (de forma automática) como servicio en cualquier componente de la aplicación sin que se tenga que añadir en "app.module.ts"
 @Injectable({
   providedIn: 'root'
 })
@@ -24,9 +24,10 @@ export class SidebarService
   [
     {
       titulo: 'Principal',
-      icono: 'mdi mdi-gauge',
+      icono: 'mdi mdi-gauge',  // Este valor lo tomamos del archivo "sidebar.component.html"
       submenu:
       [
+        // Los valores de los "url" los sacamos del archivo "pages.routes.ts" que está en la carpeta "pages"
         {titulo: 'Dashboard', url: '/dashboard'},
         {titulo: 'ProgressBar', url: '/progress'},
         {titulo: 'Gráficas', url: '/graficas1'},

@@ -1,12 +1,13 @@
 // Módulo donde van a cargarse trodos los Componentes, directivas, diversas configuraciones
 // para el Framework y varios módulos necesarios
 
-// ++++ COMPONENTES DEL SISTEMA
+// ++++++++++ COMPONENTES DEL SISTEMA ++++++++++
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
-// ++++ COMPONENTES CREADOS POR NOSOTROS ++++
+
+// ++++++++++ COMPONENTES CREADOS POR NOSOTROS ++++++++++
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';

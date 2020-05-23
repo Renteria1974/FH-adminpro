@@ -5,8 +5,10 @@
 
 
 // ++++ SERVICIOS CREADOS POR NOSOTROS ++++
-// "export" = Exportamos los servicios, dem anera que si el día de mañana estos archivos se mueven a otra carpeta entonces
+// "export" = Exportamos los servicios, de manera que si el día de mañana estos archivos se mueven a otra carpeta entonces
 //            sólo modificamos el llamado en este lugar porque sólo aquí se tiene la referencia directa al path de su ubicación
-export { SettingsService} from './settings/settings.service';
+export { LoginGuardGuard } from './Guardias/login-guard.guard';
+export { SettingsService } from './settings/settings.service';
 export { SharedService } from './shared/shared.service';
 export { SidebarService } from './shared/sidebar.service';
+export { UsuarioService } from './Usuario/usuario.service';

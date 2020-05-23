@@ -14,19 +14,22 @@
                         <li><a href="javascript:void()">My Balance</a></li>
                         <li><a href="javascript:void()">Inbox</a></li>
                         <li><a routerLinkActive="active" routerLink="/account-settings">Account Setting</a></li>
-                        <li><a routerLink="/login">Logout</a></li>
+                        <li><a (click)="_servicioUsuario.logOut()" class="pointer">Logout</a></li>
                     </ul>
                 </li>
                 <li class="nav-devider"></li>
                 <li class="nav-small-cap">PERSONAL</li>
 
                 <!-- Generamos el Menu -->
-                <!-- Recorremos el array que definimos en "sedebar.service.ts" -->
+                <!-- Recorremos el array que definimos en "sidebar.service.ts" -->
                 <li *ngFor="let menu of _sidebar.menu">
                     <a class="has-arrow waves-effect waves-dark" aria-expanded="false"><i [class]="menu.icono"></i><span class="hide-menu">{{ menu.titulo}} <span class="label label-rouded label-themecolor pull-right">{{ menu.submenu.length }}</span></span></a>
                     <ul aria-expanded="false" class="collapse">
                         <!-- Generamos el Submenu -->
                         <li *ngFor="let submenu of menu.submenu">
+                            <!-- "[ submenu.url ]" = Como este valor es un elemento de angular requerimos mandarlo como un arreglo porque posiblemente
+                                                    despues ocupemos opciones del menú que lleven parámetros y se mandan como otros elementos al arreglo
+                            -->
                             <a routerLinkActive="active" [routerLink]="[ submenu.url ]">{{ submenu.titulo }} </a>
                         </li>
                     </ul>

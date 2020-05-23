@@ -19,17 +19,23 @@ import { Title, Meta, MetaDefinition } from '@angular/platform-browser';
 export class BreadcrumbsComponent implements OnInit
 {
 
-  public titulo: string;  // Propiedad para le título del encabezado de la pagina
+  public titulo: string;  // Propiedad para el título del encabezado de la pagina
 
   // CONSTRUCTOR : Es el primer método que se lanza al instanciar un objeto o instanciar la clase. Al llamar al componente
   // lo primero en ejecutarse es el Constructor.
   // Se utiliza para inicializar las propiedades de la clase, asignarles un valor o hacer una pequeña configuración
+  // "private router: Router" = Inyectamos esta variablepara poder obtener los parámetros que definimos en el "pages.routes.ts",
+  //                             es decir, la "data" de cada ruta
+  // "private title: Title"   = Inyectamos esta varible para poder colocar un título personalizado (en la pestaña del navegador web)
+  //                             que indique en cuál página de nuestra aplicación nos encontramos
+  // "private meta: Meta"     = Inyectamos esta variable para poder
   constructor( private router: Router, private title: Title, private meta: Meta )
   {
     this.getDataRoute()
     .subscribe( data => {
-      console.log( data );
-      
+      // Recordemos que "data" es la propiedad tipo objeto quedeclaramos en las rutas en el archivo "pages.routes.ts"
+      // console.log( data );
+
       // Dar valor a la propiedad de título contenida en la propiedad "data"
       this.titulo = data.titulo;
 
@@ -45,7 +51,8 @@ export class BreadcrumbsComponent implements OnInit
         content: this.titulo
       };
 
-      // Hacemos la actualización en el HTML
+      // Hacemos la actualización en el HTML, con esto creamos en forma dinámica una etiqueta "meta" dentro
+      // del archivo "index.html" cuya propiedad "description" tendrá el valor de la página que esté cargada en ese momento
       this.meta.updateTag( metaTag );
 
 
@@ -66,17 +73,17 @@ export class BreadcrumbsComponent implements OnInit
     // "this.router.events" = Es un observable
     // "pipe"   = (tubería) permite transformar la información de alguna manera, o hacer algún proceso de
     return this.router.events.pipe(
-    // "Filter" = Recibe como argumento una función
+    // "filter" = Recibe como argumento una función
     // Forzosamente debe regresar "true" o "false", si es "true" se muestra el resultado, si es "false" no se muestra
     // Recibe 2 argumentos: "valor" (o la respuesta) y una posición "index" ( el núm. de veces que se ha llamado a este filter)
 
-    // Este filtro es para mostrar los eventos del tipo "ActivationEnd"
+    // Este filtro recibe como parámetro un evento y retorna sólo los eventos del tipo "ActivationEnd"
     filter( evento => evento instanceof ActivationEnd ),
-    // Filtramos para que solo nos muestre al evento "ActivationEnd" cuya propiedad "firstChild" sea "null"
+    // Este filtro recibe eventos del tipo "ActivationEnd" y retorna solo aquel cuya propiedad "firstChild" sea "null"
     filter( (evento: ActivationEnd) => evento.snapshot.firstChild === null ),
     // Con el operador "map" obtenemos el valor del "data" del "snapshot"
-    // "evento: ActivationEnd" = Recibimos un evento del tipo "ActivationEnd"
-    // "evento.snapshot.data"  = Lo único que nos interesa regresar es el valor del "data"
+    // "evento: ActivationEnd" = Recibimos como parámetro un evento del tipo "ActivationEnd"
+    // "evento.snapshot.data"  = Retornamos el valor del "data" que está dentro del "snapshot"
     map( ( evento: ActivationEnd ) => evento.snapshot.data )
     );
   }

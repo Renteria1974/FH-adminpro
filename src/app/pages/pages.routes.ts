@@ -4,7 +4,6 @@
 /* Componentes o Modulos del Router */
 import { RouterModule, Routes } from '@angular/router';
 
-
 // ++++ COMPONETES CREADOS POR NOSOTROS ++++
 import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -14,6 +13,9 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 
+// ++++ SERVICIOS CREADOS POR NOSOTROS ++++
+import { LoginGuardGuard } from '../services/Guardias/login-guard.guard';
+
 
 // Constante array de Objetos de tipo "Routes" que van a contener objetos JSON de tipo "ruta" (con la configuración de la Ruta)
 const pagesRoutes: Routes =
@@ -21,6 +23,7 @@ const pagesRoutes: Routes =
   {
     path: '',
     component: PagesComponent,
+    canActivate: [ LoginGuardGuard ],   // Es del tipo array porque puede recibir más de un GUARD
     // Arreglo de todas las rutas hijas
     children:
     [
@@ -41,8 +44,8 @@ const pagesRoutes: Routes =
   arriba para que cargue todas las rutas que nosotros indicamos
   y las introduzca e inyecte a las rutas del framework y funcione todo
 
-  useHash:true = Esto añade al a ruta un "#", que es un viejo truco de los navegadores
-                  para evitar que se recargue la página
-  .forChild  = No se usa el "forRoot" porque esta no es la ruta principal del proyecto
+  "useHash:true"  = Esto añade al a ruta un "#", que es un viejo truco de los navegadores
+                    para evitar que se recargue la página
+  ".forChild"     = No se usa el "forRoot" porque esta no es la ruta principal del proyecto
 */
 export const PAGES_ROUTES = RouterModule.forChild( pagesRoutes );

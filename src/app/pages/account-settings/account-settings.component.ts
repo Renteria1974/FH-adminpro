@@ -1,6 +1,5 @@
 // Importamos el Móduo COMPONENT que nos permite crear un Componente y poder hacer uso del Decorador, Etc.
 import { Component, DoCheck, Inject, Renderer2, ElementRef, ViewChildren, QueryList, AfterViewInit } from '@angular/core';
-// import { DOCUMENT } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/common';
 
 // SERVICIOS CREADOS POR NOSOTROS

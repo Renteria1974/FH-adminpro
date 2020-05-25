@@ -4,10 +4,11 @@
 // ++++++++++ COMPONENTES DEL SISTEMA ++++++++++
 // Indispensable para que funcione el "two way data-binding"
 import { FormsModule } from '@angular/forms';
-// Para el manejo de las gráficas
-import { ChartsModule } from 'ng2-charts';
-
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+// ++++++++++ COMPONENTES CREADOS POR TERCEROS ++++++++++
+import { ChartsModule } from 'ng2-charts';  // Para el manejo de las gráficas
 
 // ++++++++++ COMPONENTES CREADOS POR NOSOTROS ++++++++++
 import { SharedModule } from '../shared/shared.module';
@@ -21,6 +22,10 @@ import { GraficadonaComponent } from '../components/graficadona/graficadona.comp
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
+import { ProfileComponent } from './profile/profile.component';
+
+// ++++++++++ PIPES CREADOS POR NOSOTROS ++++++++++
+import { PipesModule } from '../Pipes/pipes.module';
 
 
 // Crea un Módulo
@@ -36,8 +41,10 @@ import { RxjsComponent } from './rxjs/rxjs.component';
      GraficadonaComponent,
      AccountSettingsComponent,
      PromesasComponent,
-     RxjsComponent
+     RxjsComponent,
+     ProfileComponent
   ],
+
   // Para poder usar estas páginas (las declaradas en "declarations") por ostros componentes que se encuentran fuera de este módulo
   exports:
   [
@@ -46,13 +53,16 @@ import { RxjsComponent } from './rxjs/rxjs.component';
     Graficas1Component,
     PagesComponent
   ],
+
   // Carga diferentes módulos, funcionalidades y servicios del framework para cargarlos en la Aplicación
   imports:
   [
+    CommonModule,
     SharedModule,   // Hace referencia a la clase creada en el archivo "share.module.ts" dentro de la carpeta "shared"
     PAGES_ROUTES,   // Constante creada en el archivo "pages.routes.ts"
     FormsModule,    // Indispensable para que funcione el "two way data-binding"
-    ChartsModule    // Param anejar las gráficas con el "ng2-charts"
+    ChartsModule,   // Para m anejar las gráficas con el "ng2-charts"
+    PipesModule     // Módulo que contiene el llamado de todos los PIPES que vamos a utilizar
   ],
 
 })

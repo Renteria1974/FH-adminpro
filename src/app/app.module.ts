@@ -33,6 +33,7 @@ import { RegisterComponent } from './login/register.component';
     LoginComponent,
     RegisterComponent
   ],
+
   // Carga diferentes Módulos, Funcionalidades y Servicios del framework para cargarlos en la Aplicación
   imports:
   [
@@ -43,10 +44,12 @@ import { RegisterComponent } from './login/register.component';
     ReactiveFormsModule,
     ServiceModule  // Contiene el llamado a los servicios que estan dentro de la carpeta "services"
   ],
+
   // Se cargan ciertos Servicios, Configuraciones
   providers:
   [
   ],
+
   // Se indica el componente principal con el que la aplicación va a lanzarse
   bootstrap:
   [

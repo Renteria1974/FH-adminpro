@@ -5,6 +5,9 @@ import { Component, OnInit } from '@angular/core';
 // ++++ SERVICIOS CREADOS POR NOSOTROS
 import { SidebarService , UsuarioService } from '../../services/service.index';
 
+// ++++ MODELOS CREADOS POR NOSOTROS ++++++
+import { Usuario } from '../../Modelos/usuario';
+
 
 // El Decorador lo que hace es aportar una Funcionalidad a una clase (que se define abajo), darle unas
 // características concretas que modifican su comportamiento
@@ -21,6 +24,8 @@ import { SidebarService , UsuarioService } from '../../services/service.index';
 // aunque por buena costumbre de programación hacer buen uso de ese tipo de declaraciones
 export class SidebarComponent implements OnInit
 {
+  // PROPIEDADES
+  usuario: Usuario;
 
   // CONSTRUCTOR : Es el primer método que se lanza al instanciar un objeto o instanciar la clase. Al llamar al componente
   // lo primero en ejecutarse es el Constructor.
@@ -38,6 +43,7 @@ export class SidebarComponent implements OnInit
   // se ejecuta despues de "ngOnChanges"
   ngOnInit()
   {
+    this.usuario = this._servicioUsuario.usuario;
   }
 
 }

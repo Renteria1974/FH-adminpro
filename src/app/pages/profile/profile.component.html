@@ -1,0 +1,93 @@
+<!-- CONTENEDOR PARA LOS DATOS A MODIFICAR DLE USUARIO -->
+<!-- RENGLON de la rejilla de Bootstrap
+  "row"             = Renglón de la rejila de BOOTSTRAP
+  "animated fadeIn" =
+  -->
+<div class="row animated fadeIn">
+  <!-- COLUMNA de la rejilla de Bootstrap
+    "col-lg-6" = En un display Largo (Large) hacia arriba ocupará 8 columnas de su contenedor padre
+   -->
+  <div class="col-lg-7">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Perfil del Usuario</h4>
+        <h6 class="card-subtitle">Nombre del Usuario</h6>
+        <!-- Forulario de Captura de Datos del Usuario
+         "ngNativeValidate" = Activa las validaciones establecidad en el HTML, en este caso lo requerimos para los campos "required",
+                            para que al dar cli en el botón INGRESAR si el campo no tiene datos aparezca el mensaje de alerta
+          "#f="ngForm""     = Creamos una referencia local al formulario
+          "( f )"           = Significa que vamos a mandar todo el formulario
+        -->
+        <form ngNativeValidate #f="ngForm" (ngSubmit) ="guardarCambios( f.value)" class="form p-t-20">
+          <!-- <<<<<< Nombre >>>>>> -->
+          <div class="form-group">
+            <label for="exampleInputuname">Nombre de Usuario</label>
+            <div class="input-group">
+              <div class="input-group-addon">
+                <i class="ti-user"></i>
+              </div>
+              <!--
+                "[ngModel]" = Solo se ponen los corchetes sin peréntesis, no queremos que desde aquí se modificque el valor de la propiedad
+              -->
+              <input [ngModel]="usuario.nombre" name="nombre" type="text" class="form-control" placeholder="Nombre de Usuario" required autocomplete="off">
+            </div>
+          </div>
+          <!-- <<<<<< Email >>>>>> -->
+          <div class="form-group">
+            <label for="exampleInputEmail1">Correo de Usuario</label>
+            <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="ti-email"></i>
+                </div>
+                <!--
+                  "[disabled]="usuario.google"" = Si el usuario es de Google que no se permita editar este campo
+                -->
+                <input [ngModel]="usuario.email" [disabled]="usuario.google" name="email" type="email" class="form-control" placeholder="Correo del Usuario"
+                required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" autocomplete="off">
+            </div>
+          </div>
+          <!-- <<<<<< Botón SUBMIT >>>>>> -->
+          <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">
+            <i class="fa fa-save"></i>
+            Guardar
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- CONTENEDOR PARA LA FOTOGRAFÍA -->
+  <div class="col-lg-5">
+    <div class="card">
+      <!--
+        "align="center" = Alineamos el contenido al centro de su contenedor padre
+      -->
+      <div class="card-body" align="center">
+        <h4 class="card-title">Fotografía del Usuario</h4>
+        <h6 class="card-subtitle">Nombre del Usuario</h6>
+        <!-- <<<<<< Previwew de la Imagen del Usuario >>>>>>
+          "imagen" = Es el nombre del "pipe" definido en el archivo "imagen.pipe.ts" dentro de la carpeta "pipes", no especificamos
+                  el tipo porque recordemos que por default toma el tipo "usuarios"
+          "m-2"    = Margen exterior de todos los lados, valores pueden ir de 1 al 5
+        -->
+        <img *ngIf="!imagenTemp" [src]="usuario.img | imagen" class="w150 m-2">
+        <img *ngIf="imagenTemp" [src]="imagenTemp" class="w150 m-2">
+
+        <!-- <<<<<< Botón para Seleccionar la foto del Usuario >>>>>>
+          "(change)" = Este evento se dispara cada vez que cambia algo aquí: seleccionar, cancelar, etc.
+          "$event.target.files[0]" = Al seleccionar uan imagen se dispara el evento y en la propiedad "target" (que realmente es un array porque se pueden seleccionar
+                                    varias imágenes) que contiene el archivo seleccionado seleccionamos solo el primer elemento porque sólo estamos manejando 1 imagen
+        -->
+        <input (change) ="seleccionImagen( $event.target.files[0] )" type="file">
+        <br><br>
+
+        <!-- <<<<<< Botón para actualizar la Foto del Usuario >>>>>>
+          [disabled]="!imagenSubir" = Al no seleccionar ninguna imagen se deshabilita el botón
+        -->
+        <button (click)="cambiarImagen()" [disabled]="!imagenSubir" type="button" class="btn btn-block btn-info waves-effect waves-light m-r-10">
+          <i class="fa fa-save"></i>
+          Actualizar Avatar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

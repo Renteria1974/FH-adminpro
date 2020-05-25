@@ -5,7 +5,17 @@
     cursor: pointer;
 }
 
+
 .pointer
 {
   cursor: pointer;  /* Cursor de tipo "manita" */
 }
+
+
+/* Clase de la imagen del Preview del avatar del Usuario ()profile.component.html */
+.w150
+{
+  width: 150px; /* Ancho */
+}
+
+

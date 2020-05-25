@@ -12,7 +12,7 @@ export class Usuario
     public nombre:    string,
     public email:     string,
     public password:  string,
-    public imagen?:   string,      // Una vez que un campo se pone como opcional ("?") los campos que le siguen tambien deben ser opcionales
+    public img?:   string,      // Una vez que un campo se pone como opcional ("?") los campos que le siguen tambien deben ser opcionales
     public rol?:      string,
     public google?:   boolean,
     public _id?:      string,

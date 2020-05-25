@@ -13,6 +13,9 @@ import { map } from 'rxjs/operators';               // Para poder "tomar" las re
 // ++++ MODELOS CREADOS POR NOSOTROS ++++
 import { Usuario } from '../../Modelos/usuario';
 
+// ++++++++++ SERVICIOS CREADOSP OR NOSOTROS ++++++++++
+import { SubirArchivoService } from '../SubirArchivo/subir-archivo.service';
+
 // ++++ ARCHIVOS DE CONFIGURACIÓN DEL SISTEMA ++++
 import { EntDesarrollo  } from '../../../environments/environment';
 
@@ -45,12 +48,14 @@ export class UsuarioService
   // Se utiliza para inicializar las propiedades de la clase, asignarles un valor o hacer una pequeña configuración
   constructor(
     public http: HttpClient,
-    public router: Router
+    public router: Router,
+    public _servicioSubirArchivo: SubirArchivoService
 
   )
   {
     this.cargarStorage(); // Cargamos los valores del LocalStorage (si es que existen) en nuestras propiedades Locales
   }
+
 
 
   // <<<<<< Método para asegurarnos que el Usuario está Logueado >>>>>>
@@ -202,5 +207,73 @@ export class UsuarioService
         swal.fire('Correo Creado', usuario.email, 'success');
         return res.usuario;
       }));
+  }
+
+
+
+  // <<<<<< Método para actualizarl os datos del Usuaro en BDD >>>>>>
+  actualizarUsuario( usuario: Usuario )
+  {
+    // "EntDesarrollo.URL_ServidorNode" = Constante definida en el archivo "Config/Config.ts" que contiene la URL base de nuestro Servidor Node Local
+    // "'/usuario'"                     = Es la ruta del Servicio para Guardar un Nuevo Usuario en BDD, Tal como lo tenemos declarado en el POSTMAN
+    // "usuario._id"                    = Es el ID del Usuario a Modificar
+    // "'?token='"                      = Así se envía el token porque estamos haciendo lo llegar por la URL
+    let url: string = EntDesarrollo.URL_ServidorNode + '/usuario/' + usuario._id;
+    url += '?token=' + this.token;
+
+    // return       = Deseamos ser notificados cuando se ejecute nuestro método POST. Regresamos un "Observador" al cual nos vamos a poder subscribir
+    // ".put "      = Porque la petición usada es un PUT
+    // "url"        = URL completa de la Petición
+    // "usuario"    = Objeto de tipo "Usuario" del que vamso a actualizar los datos
+    // ".pipe(.map" = Nos permite tomar la respuesta (res) y transformarla
+    // "res: any"   = Hay que ponerlo asi para que "res.usuario" no marque error, recordemos que en este caso se nos regresa el Objeto de  "Usuario" ya actualizado
+    return this.http.put( url , usuario )
+      .pipe( map( ( res: any ) =>
+      {
+        let usuarioDB: Usuario = res.usuario; // A nuestra variable local le asignamos el objeto nuevo que nos regresa el método "map"
+
+        this.guardarStorage( usuarioDB._id , this.token , usuarioDB ); // Actualizamos el LocalStorage con los nuevos datos del Usuario
+
+        swal.fire('Usuario Actualizado !!!', usuario.nombre, 'success');
+
+        return true;
+      }));
+
+  }
+
+
+
+  // <<<<<< Método para cambiar la Imagen del Usuario >>>>>>
+  // "archivo"  = Objeto de tipo Archivo
+  // "id"       = Esel ID del Usuario
+  cambiarImagen( archivo: File , id: string )
+  {
+    // ++ Subimos la Imagen, el Avatar del Usuario ++
+    // "".subirArchivo"         = Método que definimos en el archivo "subir-archivo.service.ts"
+    // "archivo"                = Es en sí el documento, el archivo
+    // "'usuarios"              = Es el tipo de archivo a subir (tambien hay: 'hospitales', 'medicos')
+    // "id"                     = Es el ID del objeto, en este caos del Usuario (Podría ser también de un Hospital o un Médico)
+    this._servicioSubirArchivo.subirArchivo( archivo , 'usuarios' , id )
+      // Recordemos que el método "subirArchivo" nos regresa una PROMESA, así definimos
+      // Usamos el método "then" para capturar la respuesta que nos llegue
+      // "(res: any)" = Función de callback que nos devuelve una respuesta(res)
+      .then( (res: any) =>
+      {
+        // A nuestro usuario logueado le asignamos el nombre de la imagen de su avatar
+        this.usuario.img = res.usuarios.img;
+
+        swal.fire('Imagen Actualizada !!!', this.usuario.nombre, 'success');  // Ponemos un mensaje en Pantalla
+
+        // Actualizamos en el LOCALSTORAGE
+        this.guardarStorage( id , this.token , this.usuario );
+
+      })
+      // Si algo sale mal disparamos el ".catch"
+      // "res" = respuesta
+      .catch( res =>
+      {
+        console.log( res );
+      });
+
   }
 }

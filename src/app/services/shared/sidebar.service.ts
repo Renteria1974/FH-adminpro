@@ -17,6 +17,10 @@ import { Injectable } from '@angular/core';
 })
 
 
+// Clase. Necesaria la palabra "export" para indicar que se pueda utilizar en otros ficheros
+// NOTA: Si definimos una propiedad como PUBLIC o PRIVATE a typescript no le importa ya que
+// las 2 se pueden "imprimir" sin ningun problema, se la salta, aunque por buena costumbre de
+// programación hacer buen uso de ese tipo de declaraciones
 export class SidebarService
 {
   // Arreglo de objetos para controlar todas las opciones que tenga el menú lateral
@@ -28,12 +32,23 @@ export class SidebarService
       submenu:
       [
         // Los valores de los "url" los sacamos del archivo "pages.routes.ts" que está en la carpeta "pages"
-        {titulo: 'Dashboard', url: '/dashboard'},
-        {titulo: 'ProgressBar', url: '/progress'},
-        {titulo: 'Gráficas', url: '/graficas1'},
-        {titulo: 'Promesas', url: '/promesas'},
-        {titulo: 'Rxjs', url: '/rxjs'},
+        { titulo: 'Dashboard' , url: '/dashboard' },
+        { titulo: 'ProgressBar' , url: '/progress' },
+        { titulo: 'Gráficas' , url: '/graficas1' },
+        { titulo: 'Promesas' , url: '/promesas' },
+        { titulo: 'Rxjs' , url: '/rxjs' },
       ]
+    },
+    {
+      titulo: 'Mantenimientos',
+      icono: 'mdi mdi-folder-lock-open',
+      submenu:
+      [
+        { titulo: 'Usuarios' , url: '/usuarios' },
+        { titulo: 'Hospitales' , url: '/hospitales'},
+        { titulo: 'Medicos' , url: '/medicos' }
+      ]
+
     }
   ];
 

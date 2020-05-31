@@ -19,3 +19,34 @@
 }
 
 
+/* Clase usada en archivo "usuarios.component.html" para que el contenedor de la imagen de avatar del Usuario sea un poco más grande que la imagen */
+.img-70
+{
+  width: 70px;
+}
+
+
+/* Clase usada en archivo "usuarios.component.html" para que en el listado las imagenesde avatar del usuario no se vean muy grandes */
+.img-50
+{
+  width: 50px;
+}
+
+/* Clase usada en el archivo "modal-upload.component.html" que está dentro de la carpeta "components/modal-upload" */
+.fondoNegro
+{
+  background-color: rgba( 0,0,0,0.4 );  /* Color de fondo, es como una transparencia */
+  position: fixed;                        /* Que tenga una posición estática */
+  top: 0px;                               /* Sin margen de la parte superior de su contenedor padre  */
+  left: 0px;                              /* Sin margen dal lado izquierdo hacia su contenedor padre */
+  width: 100%;                            /* Ancho, en este caso usa el 100% de su contenedor padre */
+  height: 100%;                           /* Altura, e este caso usa el 100% de su contenedor padre */
+  z-index: 9999;                          /* Que siempre esté visible, que no haya ningún elemento encima de él */
+}
+
+
+/* Clase usada en el archivo "modal-upload.component.html" que está dentro de la carpeta "components/modal-upload" */
+.oculto
+{
+  display: none;    /* Oculta el elemento */
+}

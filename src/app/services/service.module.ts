@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
+
 // ++++++++++ SERVICIOS CREADOS POR NOSOTROS ++++++++++
 // Son los servicios que tenemos concentarados en el archivo "service.index.ts"
 import {
@@ -13,7 +14,8 @@ import {
   SharedService,
   UsuarioService,
   LoginGuardGuard,
-  SubirArchivoService
+  SubirArchivoService,
+  ModalUploadService
 } from './service.index';
 
 
@@ -40,7 +42,8 @@ import {
     SharedService,
     UsuarioService,
     LoginGuardGuard,
-    SubirArchivoService
+    SubirArchivoService,
+    ModalUploadService
   ]
 })
 

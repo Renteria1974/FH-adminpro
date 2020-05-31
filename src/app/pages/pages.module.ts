@@ -8,7 +8,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 // ++++++++++ COMPONENTES CREADOS POR TERCEROS ++++++++++
-import { ChartsModule } from 'ng2-charts';  // Para el manejo de las gráficas
+import { ChartsModule } from 'ng2-charts';                      // Para el manejo de las gráficas
 
 // ++++++++++ COMPONENTES CREADOS POR NOSOTROS ++++++++++
 import { SharedModule } from '../shared/shared.module';
@@ -23,9 +23,12 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { ProfileComponent } from './profile/profile.component';
+import { UsuariosComponent } from './usuarios/usuarios.component';
+import { ModalUploadComponent } from '../components/modal-upload/modal-upload.component';
 
 // ++++++++++ PIPES CREADOS POR NOSOTROS ++++++++++
 import { PipesModule } from '../Pipes/pipes.module';
+
 
 
 // Crea un Módulo
@@ -42,7 +45,9 @@ import { PipesModule } from '../Pipes/pipes.module';
      AccountSettingsComponent,
      PromesasComponent,
      RxjsComponent,
-     ProfileComponent
+     ProfileComponent,
+     UsuariosComponent,
+     ModalUploadComponent
   ],
 
   // Para poder usar estas páginas (las declaradas en "declarations") por ostros componentes que se encuentran fuera de este módulo

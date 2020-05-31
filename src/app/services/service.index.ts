@@ -13,3 +13,4 @@ export { SharedService } from './shared/shared.service';
 export { SidebarService } from './shared/sidebar.service';
 export { UsuarioService } from './Usuario/usuario.service';
 export { SubirArchivoService } from './SubirArchivo/subir-archivo.service';
+export { ModalUploadService } from '../components/modal-upload/modal-upload.service';

@@ -2,16 +2,16 @@
 <!-- RENGLON de la rejilla de Bootstrap
   "row"             = Renglón de la rejila de BOOTSTRAP
   "animated fadeIn" =
-  -->
+-->
 <div class="row animated fadeIn">
   <!-- COLUMNA de la rejilla de Bootstrap
     "col-lg-6" = En un display Largo (Large) hacia arriba ocupará 8 columnas de su contenedor padre
-   -->
+  -->
   <div class="col-lg-7">
     <div class="card">
       <div class="card-body">
         <h4 class="card-title">Perfil del Usuario</h4>
-        <h6 class="card-subtitle">Nombre del Usuario</h6>
+        <h6 class="card-subtitle">{{ usuario.nombre }}</h6>
         <!-- Forulario de Captura de Datos del Usuario
          "ngNativeValidate" = Activa las validaciones establecidad en el HTML, en este caso lo requerimos para los campos "required",
                             para que al dar cli en el botón INGRESAR si el campo no tiene datos aparezca el mensaje de alerta
@@ -63,7 +63,7 @@
       -->
       <div class="card-body" align="center">
         <h4 class="card-title">Fotografía del Usuario</h4>
-        <h6 class="card-subtitle">Nombre del Usuario</h6>
+        <h6 class="card-subtitle">{{ usuario.nombre }}</h6>
         <!-- <<<<<< Previwew de la Imagen del Usuario >>>>>>
           "imagen" = Es el nombre del "pipe" definido en el archivo "imagen.pipe.ts" dentro de la carpeta "pipes", no especificamos
                   el tipo porque recordemos que por default toma el tipo "usuarios"

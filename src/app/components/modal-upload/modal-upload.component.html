@@ -1,0 +1,58 @@
+<!-- CONTENEDOR de la ventana Modal
+  "[ngClass]"                   =  Indicamos que adicionalmente va a tener también la clase "oculto"
+  "_servicioModalUpload.oculto  = Mandamos llamar a la propiedad de la clase "ModalUploadService"
+-->
+<div class="fondoNegro animated fadeIn" [ngClass]= "_servicioModalUpload.oculto">
+  <!-- Ventana Modal
+    "data-keyboard="false"  = Deshabilita el ESC
+    "data-backdrop="static" = Deshabilita el CLIC fuera de la ventana Modal
+  -->
+  <div class="modal" style="display:block;" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Cambio de imagen</h5>
+          <!-- Botón "X" que está en la esquina superior derecha
+            "(click)="oculto='oculto'" = Al hacer clic a nuestrs propiedad "oculto" le asignamos la palabra "oculto"
+          -->
+          <button (click)="cerrarModal()" type="button" class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <!-- Cuerpo
+          "text-center" = Todo el contenido se alinea al centro
+        -->
+        <div class="modal-body text-center">
+          <!-- <<<<<< Previwew de la Imagen del Usuario >>>>>>
+            "'xxxx'"  = Como no hay una imagen por defecto para cargar sólo ponemos un string
+            "imagen"  = Es el nombre del "pipe" definido en el archivo "imagen.pipe.ts" dentro de la carpeta "pipes", no especificamos
+                      el tipo porque recordemos que por default toma el tipo "usuarios"
+            "m-2"     = Margen exterior de todos los lados, valores pueden ir de 1 al 5
+          -->
+          <img *ngIf="!imagenTemp" [src]="'xxxx' | imagen" class="w150 m-2">
+          <img *ngIf="imagenTemp" [src]="imagenTemp" class="w150 m-2">
+
+          <!-- <<<<<< Botón para Seleccionar la foto del Usuario >>>>>>
+            "(change)" = Este evento se dispara cada vez que cambia algo aquí: seleccionar, cancelar, etc.
+            "$event.target.files[0]" = Al seleccionar una imagen se dispara el evento y en la propiedad "target" (que realmente es un array porque se pueden seleccionar
+                                      varias imágenes) que contiene el archivo seleccionado seleccionamos solo el primer elemento porque sólo estamos manejando 1 imagen
+            "#inputFile"              =
+          -->
+          <input (change) ="seleccionImagen( $event.target.files[0] )" type="file" #inputFile>
+        </div>
+        <!-- Píe de Página -->
+        <div class="modal-footer">
+          <!--
+            "[disabled]="!imagenTemp" = Si no hay una imagen Temporal el botón se inhabilita
+          -->
+          <button (click)="subirImagen()" [disabled]="!imagenTemp" type="button" class="btn btn-primary">Subir Imagen</button>
+          <!-- Botón Cerrar
+            "_servicioModalUpload.ocultarModal()" = Mandamos llamar al método del a clase "modal-upload.service.ts" que oculta la ventana Modal
+          -->
+          <button (click)="cerrarModal()" type="button" class="btn btn-secondary">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

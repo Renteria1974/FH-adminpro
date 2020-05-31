@@ -1,0 +1,157 @@
+<!-- CONTENEDOR DE CAMPO DE BÚSQUEDA
+  RENGLON de la rejilla de Bootstrap
+  "row"             = Renglón de la rejila de BOOTSTRAP
+  "animated fadeIn" =
+-->
+<div class="row animated fadeIn">
+  <!-- COLUMNA de la rejilla de Bootstrap
+    "col-12" = En cualquier display ocupará 12 columnas de su contenedor padre
+  -->
+  <div class="col-12">
+    <!--
+      "card" = El contenedor se prepara para poder ser una “caja” que pueden mostrar texto
+    -->
+    <div class="card">
+      <!--
+        "card-body"       = Contenedor (que está dentro de otro con la etiqueta “card”) que contiene el texto a mostrar dentro de una “caja”
+        "#input"          = Hacer referencia para a este campo para obtener lo que sea que esté escribiendo el Usuario
+        "(keyup)"         = Cuando alguien presione o suelte uan tecla
+        "( input.value )" = Se manda de valor lo que se haya tecleado (se uasa la referencia local "#input")
+      -->
+      <div class="card-body">
+          <input id="buscaUsuario" type="text" class="form-control" placeholder="Buscar Usuario...">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTENEDOR PARA ÍCONO Y MENSAJE DE ESPERA
+  RENGLON de la rejilla de Bootstrap
+  "row"             = Renglón de la rejila de BOOTSTRAP
+-->
+<div class="row animated fadeIn" *ngIf="cargando">
+  <!-- COLUMNA de la rejilla de Bootstrap
+    "col-12" = A partir de un display Chico (Small) ocupará 12 columnas de su contenedor padre
+  -->
+  <div class="col-sm-12">
+    <!--
+      "alert"           = Se crea una alerta
+       "alert-warning"  = Formato de la alerta: success, info, warning, etc.
+      "text-center"     = Centra el texto
+      -->
+    <div class="alert alert-warning text-center">
+      <!--
+        "<strong>" = El texto se pone en negritas
+      -->
+      <strong>Cargando</strong>
+      <br>
+      <!--
+        "fa-refresh"  = Poner el icono de "recarga"
+        "fa-spin"     = para que tenga le efecto de girar
+        "fa-2x"       = Tamaño del ícono, puede ser de 1 a 5
+      -->
+      <i class="fa fa-refresh fa-spin fa-2x"></i>
+      <br>
+      <span>Espere por favor</span>
+    </div>
+  </div>
+</div>
+
+<!-- CONTENEDOR PARA CREAR UNA TABLA
+
+-->
+<div class="row animated fadeIn" *ngIf="!cargando">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title">Usuarios registrados ( <small>{{ totalRegistros }}</small> ) </h3>
+        <!--
+          "table"       = Se crea uan tabla, se le dan automáticamente estilos CSS
+          "table-hover" = Agrega el efecto “hover” al pasar el mouse sobre una fila
+        -->
+        <table class="table table-hover">
+          <!--
+            "<thead>" = Está prsente sólo una vez en la tabla y debe estar antes del cuerpo de la misma
+                      Contitene un bloque de filas (<tr>) que representa al asección del encabezado de la tabla
+          -->
+          <thead>
+            <!-- "<tr>" = Renglón -->
+            <tr>
+              <!-- "<th>" = Columna -->
+              <th>Imagen</th>
+              <th>Email</th>
+              <th>Nombre del Usuario</th>
+              <th>Estatus</th>
+              <th>Rol</th>
+              <th>Autent.</th>
+              <th></th>
+            </tr>
+          </thead>
+          <!-- Cuerpo de la Tabla -->
+          <tbody>
+            <tr *ngFor="let usuario of usuarios">
+              <!-- <<<<<< Previwew de la Imagen del Usuario >>>>>>
+                  "img-70"      = Clase definida en el archivo "styles.css" que está dentro de la carpeta "src"
+                -->
+              <td class="img-70">
+                <!-- <<<<<< Previwew de la Imagen del Usuario >>>>>>
+                  "imagen"      = Es el nombre del "pipe" definido en el archivo "imagen.pipe.ts" dentro de la carpeta "pipes", no especificamos
+                                el tipo porque recordemos que por default toma el tipo "usuarios"
+                  "img-50"      = Clase definida en el archivo "styles.css" que está dentro de la carpeta "src"
+                  "img-circle"  = Redondea la imagen
+                  "pointer"     = Clase para poner el puntero de la "manita" definida en "styles.css"
+                -->
+                <img (click)="mostrarModal( usuario._id )" [src]="usuario.img | imagen" class="img-50 img-circle pointer">
+              </td>
+              <!-- <<<<<< Email  >>>>>> -->
+              <td>{{ usuario.email }}</td>
+              <!-- <<<<<< Nombre >>>>>> -->
+              <td>{{ usuario.nombre }}</td>
+              <!-- <<<<<< Estatus >>>>>> -->
+              <td>
+                <select [(ngModel)]="usuario.activo" name="activo" class="form-control">
+                  <option value=true>Habilitado</option>
+                  <option value=false>Inhabilitado</option>
+                </select>
+              </td>
+              <!-- <<<<<< Rol >>>>>> -->
+              <td>
+                <select [(ngModel)]="usuario.role" name="role" class="form-control">
+                  <option value="ROLE_ADMIN">Administrador</option>
+                  <option value="ROLE_USER">Usuario</option>
+                </select>
+              </td>
+              <!-- <<<<<< Tipo de Autenticación >>>>>>
+                ""align-middle" = Alinea al centro verticalmente
+              -->
+              <td  class="align-middle">
+                <label *ngIf="usuario.google" class="label label-danger">Google</label>
+                <label *ngIf="!usuario.google" class="label label-info">Normal</label>
+              </td>
+              <!-- <<<<<< Botones para: Modificar, Desactivar, Reactivar >>>>>> -->
+              <td>
+                <!-- Botón para Guardar Cambios al registro del Usuario -->
+                <button (click)="guardarUsuario( usuario )" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Modificar">
+                  <i class="fa fa-save"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- CONTENEDOR DE LOS BOTONES "Siguiente" y "Anterior" -->
+<div class="row">
+  <div class="col-12 text-center">
+    <!-- Botón para Ir una página atras -->
+    <button (click)="cambiarDesde(-5)" class="btn btn-secondary mr-1" [disabled]="desde < 5" >
+      &laquo; Anterior
+    </button>
+    <!-- Botón para ir una página adelante -->
+    <button (click)="cambiarDesde(5)" class="btn btn-secondary" [disabled]="desde + 5 >= totalRegistros">
+      Siguiente &raquo;
+    </button>
+  </div>
+</div>

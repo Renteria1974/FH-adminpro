@@ -50,7 +50,6 @@ export class UsuarioService
     public http: HttpClient,
     public router: Router,
     public _servicioSubirArchivo: SubirArchivoService
-
   )
   {
     this.cargarStorage(); // Cargamos los valores del LocalStorage (si es que existen) en nuestras propiedades Locales
@@ -224,15 +223,18 @@ export class UsuarioService
     // return       = Deseamos ser notificados cuando se ejecute nuestro método POST. Regresamos un "Observador" al cual nos vamos a poder subscribir
     // ".put "      = Porque la petición usada es un PUT
     // "url"        = URL completa de la Petición
-    // "usuario"    = Objeto de tipo "Usuario" del que vamso a actualizar los datos
+    // "usuario"    = Objeto de tipo "Usuario" del que vamos a actualizar los datos
     // ".pipe(.map" = Nos permite tomar la respuesta (res) y transformarla
     // "res: any"   = Hay que ponerlo asi para que "res.usuario" no marque error, recordemos que en este caso se nos regresa el Objeto de  "Usuario" ya actualizado
     return this.http.put( url , usuario )
       .pipe( map( ( res: any ) =>
       {
-        let usuarioDB: Usuario = res.usuario; // A nuestra variable local le asignamos el objeto nuevo que nos regresa el método "map"
-
-        this.guardarStorage( usuarioDB._id , this.token , usuarioDB ); // Actualizamos el LocalStorage con los nuevos datos del Usuario
+        // El Usuario que se está modificando es el mismo que está Logueado, entonces actualizamos el LocalStorage
+        if ( usuario._id === this.usuario._id )
+        {
+          let usuarioDB: Usuario = res.usuario;                           // A nuestra variable local le asignamos el objeto nuevo que nos regresa el método "map"
+          this.guardarStorage( usuarioDB._id , this.token , usuarioDB );  // Actualizamos el LocalStorage con los nuevos datos del Usuario
+        }
 
         swal.fire('Usuario Actualizado !!!', usuario.nombre, 'success');
 
@@ -274,6 +276,64 @@ export class UsuarioService
       {
         console.log( res );
       });
+  }
 
+
+
+  // <<<<<< Método para cargar el Listado de Usuarios >>>>>>
+  // "desde=0" = A partir de cual página inicial el listado, se pone en cero por si no se recibe con valor entonces inicia en la página 1
+  cargarUsuarios( desde: number = 0  )
+  {
+    // "EntDesarrollo.URL_ServidorNode" = Constante definida en el archivo "Config/Config.ts" que contiene la URL base de nuestro Servidor Node Local
+    // "'/usuario?desde='"              = Es la ruta del Servicio para Guardar un Nuevo Usuario en BDD, Tal como lo tenemos declarado en el POSTMAN
+    // "desde"                          = Es el número de página a partir del a cual se muestra el listado
+    let url: string = EntDesarrollo.URL_ServidorNode + '/usuario?desde=' + desde;
+
+    // return       = Deseamos ser notificados cuando se ejecute nuestro método POST. Regresamos un "Observador" al cual nos vamos a poder subscribir
+    // ".get "      = Porque la petición usada es un GET
+    // "url"        = URL completa de la Petición
+    return this.http.get( url );
+  }
+
+
+
+  // <<<<<< Método para localizar a un Usuario en base a una cadena de búsqueda >>>>>>
+  buscarUsuarios( cadenaBusq: string )
+  {
+    // "EntDesarrollo.URL_ServidorNode" = Constante definida en el archivo "Config/Config.ts" que contiene la URL base de nuestro Servidor Node Local
+    // "'/busqueda/coleccion/usuarios/" = Es la ruta del Servicio para Guardar un Nuevo Usuario en BDD, Tal como lo tenemos declarado en el POSTMAN
+    // "cadenaBusq"                     = Es la cadena de búsqueda para rastrear las coincidencias que encuentre de nombres de Usuarios
+    let url: string = EntDesarrollo.URL_ServidorNode + '/busqueda/coleccion/usuarios/' + cadenaBusq;
+
+    // return         = Deseamos ser notificados cuando se ejecute nuestro método POST. Regresamos un "Observador" al cual nos vamos a poder subscribir
+    // ".get "        =  Porque la petición usada es un GET
+    // "url"          = URL completa de la Petición
+    // "res.usuarios" = Sólo regresamos el istado de Usuarios ya que tambien se regresa un campo booleano y ese no lo necesitamos
+    return this.http.get( url )
+    .pipe( map( ( res: any ) => res.usuarios ));
+  }
+
+
+
+  // <<<<<< Método para eliminar de la BDD el registro de un Usuario  >>>>>>
+  // "id" = Esel ID del Usuario que se desea eliminar
+  borrarUsuario( id: string )
+  {
+    // "EntDesarrollo.URL_ServidorNode" = Constante definida en el archivo "Config/Config.ts" que contiene la URL base de nuestro Servidor Node Local
+    // "'/usuario/"                     = Es la ruta del Servicio para Eliminar un Usuario en BDD, Tal como lo tenemos declarado en el POSTMAN
+    // "id"                             = Es el ID del Usuario que se va a eliminar
+    // "'?token='"                      = Así se envía el token porque estamos haciendo lo llegar por la URL
+    let url: string = EntDesarrollo.URL_ServidorNode + '/usuario/' + id;
+    url += '?token=' + this.token;
+
+    // return         = Deseamos ser notificados cuando se ejecute nuestro método POST. Regresamos un "Observador" al cual nos vamos a poder subscribir
+    // ".delete "     =  Porque la petición usada es un DELETE
+    // "url"          = URL completa de la Petición
+    return this.http.delete( url )
+    .pipe( map( ( res: any ) =>
+    {
+      swal.fire('Usuario Borrado !!!', 'El Usuario ha sido ELiminado Correctamente', 'success');
+      return true;
+    }));
   }
 }

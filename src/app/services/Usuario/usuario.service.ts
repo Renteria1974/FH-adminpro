@@ -133,7 +133,7 @@ export class UsuarioService
     // "url"          = URL completa de la Petición
     // "{ token }"    = Lo recibimos como un "string plano", así que lo mandamos como un objeto, es decir, mandamos un objeto que tiene
                       // un token y a la vez el valor del token, anteriormente se declaraba como: "{ token: token }"
-    // ".pipe( map("  = De esta forma evitamos modificar el código del método "ingresar" que está en el archivo "login.component.ts"
+    // ".pipe(.map"   = Nos permite tomar la respuesta (res) y transformarla
     // "res: any"     = Hay que ponerlo asi para que "res.id" no marque error
     return this.http.post( url , { token }  )
       .pipe( map( ( res: any ) =>
@@ -173,7 +173,7 @@ export class UsuarioService
     // ".post"        = Porque la petición usada es un POST
     // "url"          = URL completa de la Petición
     // "usuario"      = Objeto de tipo "Usuario"
-    // ".pipe( map("  = De esta forma evitamos modificar el código del método "ingresar" que está en el archivo "login.component.ts"
+    // ".pipe(.map"   = Nos permite tomar la respuesta (res) y transformarla
     // "res: any"     = Hay que ponerlo asi para que "res.id" no marque error
     return this.http.post( url , usuario )
       .pipe( map( ( res: any ) =>

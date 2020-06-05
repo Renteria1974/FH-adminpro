@@ -25,6 +25,9 @@ import { RxjsComponent } from './rxjs/rxjs.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { ModalUploadComponent } from '../components/modal-upload/modal-upload.component';
+import { HospitalesComponent } from './hospitales/hospitales.component';
+import { MedicosComponent } from './medicos/medicos.component';
+import { MedicoComponent } from './Medicos/medico.component';
 
 // ++++++++++ PIPES CREADOS POR NOSOTROS ++++++++++
 import { PipesModule } from '../Pipes/pipes.module';
@@ -47,7 +50,10 @@ import { PipesModule } from '../Pipes/pipes.module';
      RxjsComponent,
      ProfileComponent,
      UsuariosComponent,
-     ModalUploadComponent
+     ModalUploadComponent,
+     HospitalesComponent,
+     MedicosComponent,
+     MedicoComponent
   ],
 
   // Para poder usar estas páginas (las declaradas en "declarations") por ostros componentes que se encuentran fuera de este módulo

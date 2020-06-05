@@ -35,10 +35,11 @@ export class ModalUploadComponent implements OnInit
   // lo primero en ejecutarse es el Constructor.
   // Se utiliza para inicializar las propiedades de la clase, asignarles un valor o hacer una pequeña configuración
   constructor(
-    public _servicioSubirArchivo: SubirArchivoService,
-    public _servicioModalUpload: ModalUploadService
+    // "Inyección" de Servicios
+    public _servicioSubirArchivo: SubirArchivoService,  // Clase creada en el archivo  "subir-archivo.service.ts" que está dentro de la carpeta "services/SubirArchivo"
+    public _servicioModalUpload: ModalUploadService     // Clase creada en el archivo  "modal-upload.service.ts" que está dentro de la carpeta "components/modal-upload"
   )
-  { }
+  {}
 
 
 
@@ -89,21 +90,22 @@ export class ModalUploadComponent implements OnInit
 
 
 
-  // <<<<<<  >>>>>>
+  // <<<<<< Método para "subir" al Servidor la Imagen Seleccionada >>>>>>
   subirImagen()
   {
     this._servicioSubirArchivo.subirArchivo( this.imagenSubir , this._servicioModalUpload.tipo ,  this._servicioModalUpload.id )
       // Como nos está regresando un Promesa nos dá las opciones de "then" y "catch"
-      // "res"  En caso de salir todo bien se recibe un Respuesta(res)
+      // "res"  En caso de salir todo bien se recibe un Respuesta(res), para este caso la respuesta es así:
+            // mensaje: Imagen actualizada correctamente
+            // ok: true
+            // Usuarios: Nos regresa el objeto "Usuario" ya con los datos actualizados
       .then(  res =>
       {
-        // Emitimos un mensaje a todo el mundo de que ya se subió una Imagen
-        this._servicioModalUpload.notificacion.emit( res );
+        this._servicioModalUpload.notificacion.emit( res ); // Emitimos un mensaje a todo el mundo de que ya se subió una Imagen
 
-        // En ese momento ya debemos ocultar la ventana Modal ya que ya terminamos la operación
-        this.cerrarModal();
+        this.cerrarModal();                                 // En ese momento ya debemos ocultar la ventana Modal ya que ya terminamos la operación
 
-        this.limpiarFormulario(); // Limpiamos los valores del Formulario, en este caso sólo el nombre del archivo
+        this.limpiarFormulario();                           // Limpiamos los valores del Formulario, en este caso sólo el nombre del archivo
 
       })
       // En caso de salir algo mal nos regresa un error(err)
@@ -126,11 +128,10 @@ export class ModalUploadComponent implements OnInit
   // <<<<<< Método que oculta la ventana Modal >>>>>>
   cerrarModal()
   {
-    this.subirImagen = null;
+    this.imagenSubir = null;
     this.imagenTemp = null;
 
     this._servicioModalUpload.ocultarModal(); // Mandamos llamar al método que oculta la ventana Modal
   }
-
 
 }

@@ -16,7 +16,7 @@ export class Usuario
     public role?:     string,
     public google?:   boolean,
     public _id?:      string,
-    public activo?:    boolean
+    public activo?:   boolean
 
     // public apellido:        string,
     // public id_tipo_usuario: string,

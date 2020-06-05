@@ -16,7 +16,7 @@
          "ngNativeValidate" = Activa las validaciones establecidad en el HTML, en este caso lo requerimos para los campos "required",
                             para que al dar cli en el botón INGRESAR si el campo no tiene datos aparezca el mensaje de alerta
           "#f="ngForm""     = Creamos una referencia local al formulario
-          "( f )"           = Significa que vamos a mandar todo el formulario
+          "( f.value )"     = Significa que vamos a mandar todo el formulario
         -->
         <form ngNativeValidate #f="ngForm" (ngSubmit) ="guardarCambios( f.value)" class="form p-t-20">
           <!-- <<<<<< Nombre >>>>>> -->
@@ -27,7 +27,7 @@
                 <i class="ti-user"></i>
               </div>
               <!--
-                "[ngModel]" = Solo se ponen los corchetes sin peréntesis, no queremos que desde aquí se modificque el valor de la propiedad
+                "[ngModel]" = Solo se ponen los corchetes sin peréntesis, no queremos que desde aquí se modifique el valor de la propiedad
               -->
               <input [ngModel]="usuario.nombre" name="nombre" type="text" class="form-control" placeholder="Nombre de Usuario" required autocomplete="off">
             </div>

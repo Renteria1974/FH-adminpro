@@ -57,11 +57,12 @@ export class UsuariosComponent implements OnInit
 
     this.buscarporNombre(); // Se hace la búsqueda de usuarios por la cadena de búsqueda tecleada
 
-    // Nos vamos a "subscribir" a cualquier emisión que haga la propuedad "notificacion" de la clase "modal-upload.service.ts"
+    // Nos vamos a "subscribir" a cualquier emisión que haga la propiedad "notificacion" de la clase "modal-upload.service.ts"
     this._servicioModalUpload.notificacion
-      // el "subscribe" va a recibir la respuesta de la ventana Modal, todo el objeto
-      // "res" = Respuesta
-      .subscribe( res => this.cargarUsuarios() );  // Lo único que nos interesa es que se recargue la página actual para que se muestre el cambio de la umagen de avatar
+      // el "subscribe" va a recibir la respuesta de la ventana Modal, todo el objeto. En el método "subirImagen" del archivo "modal-upload.component.ts"
+      // es donde se "emite" la respuesta que da el proceso de subir la imagen al Servidor. En este caso no hacemos uso de esa respuesta(res)
+      // "() =>"" = No nos interesa la respuesta (lo que recibimos), sólo deseamos recargar el listado de Usuarios
+      .subscribe( () => this.cargarUsuarios() );  // Lo único que nos interesa es que se recargue la página actual para que se muestre el cambio de la imagen de avatar
   }
 
 
@@ -132,7 +133,7 @@ export class UsuariosComponent implements OnInit
 
 
 
-  // <<<<<< Método para mostrar el listado de Usaurios hacia atras o hacia adelante >>>>>>
+  // <<<<<< Método para mostrar el listado de Usuarios hacia atras o hacia adelante >>>>>>
   cambiarDesde( valor: number )
   {
     let tempo = this.desde + valor;
@@ -166,6 +167,7 @@ export class UsuariosComponent implements OnInit
     // "res"                = Es la repsuesta que se recibe de la ejecución del método "crearUsuario"
     this._servicioUsuario.actualizarUsuario( usuario )
       // ".subscribe" = Nos subscribimos al "observador" para que dispare el método "actualizarUsuario"
+      // No nos interesa la respuesta
       .subscribe();
   }
 
@@ -174,6 +176,7 @@ export class UsuariosComponent implements OnInit
   // <<<<<< Método para mostrar la ventana Modal para seleccionar archivo de imagen >>>>>>
   mostrarModal( id: string )
   {
+    // "usuarios" = Identificamso el tipo de imagen, pero tambien se puede poner: "medicos" u "hospitales"
     this._servicioModalUpload.mostrarModal( 'usuarios' , id );
   }
 

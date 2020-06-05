@@ -1,20 +1,22 @@
 <!-- CONTENEDOR de la ventana Modal
-  "[ngClass]"                   =  Indicamos que adicionalmente va a tener también la clase "oculto"
-  "_servicioModalUpload.oculto  = Mandamos llamar a la propiedad de la clase "ModalUploadService"
+  "fondoNegro"                  = Clase que definimos en el archivo "styles.css" y que sirve para poner la pantalla (debajo de la ventana Modal) con color de fondo grisaseo
+  "animated fadeIn"             = Para que al aparecer la ventana tenga algo de "animación"
+  "[ngClass]"                   = Actualiza en tiempo de ejecución al momento que cambie de valor la de las propiedades de la clase especificada, en este caso es la
+                                propiedad "oculto" definida en el archivo "modal-upload.service.ts"
+  "_servicioModalUpload.oculto  = Mandamos llamar a la propiedad definida en la clase "ModalUploadService"
 -->
 <div class="fondoNegro animated fadeIn" [ngClass]= "_servicioModalUpload.oculto">
   <!-- Ventana Modal
+    "style="display:block;" = Para que se muestre la ventana Modal ya que por default están ocultos
     "data-keyboard="false"  = Deshabilita el ESC
     "data-backdrop="static" = Deshabilita el CLIC fuera de la ventana Modal
   -->
-  <div class="modal" style="display:block;" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
+  <div class="modal" style="display: block;" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Cambio de imagen</h5>
-          <!-- Botón "X" que está en la esquina superior derecha
-            "(click)="oculto='oculto'" = Al hacer clic a nuestrs propiedad "oculto" le asignamos la palabra "oculto"
-          -->
+          <!-- Botón "X" que está en la esquina superior derecha -->
           <button (click)="cerrarModal()" type="button" class="close" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -47,7 +49,7 @@
           -->
           <button (click)="subirImagen()" [disabled]="!imagenTemp" type="button" class="btn btn-primary">Subir Imagen</button>
           <!-- Botón Cerrar
-            "_servicioModalUpload.ocultarModal()" = Mandamos llamar al método del a clase "modal-upload.service.ts" que oculta la ventana Modal
+            "_servicioModalUpload.ocultarModal()" = Mandamos llamar al método de la clase "modal-upload.service.ts" que oculta la ventana Modal
           -->
           <button (click)="cerrarModal()" type="button" class="btn btn-secondary">Cerrar</button>
         </div>

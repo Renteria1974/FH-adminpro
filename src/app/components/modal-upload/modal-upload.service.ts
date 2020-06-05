@@ -5,7 +5,7 @@
 
 // ++++ COMPONENTES DEL SISTEMA ++++
 import { Injectable, EventEmitter } from '@angular/core'; // Importamos un Decorador Inyectable, para poder inyectar nuestra clase mediante la inyección de dependencias
-                                            // en los componentes y en diferentes sitios
+                                                          // en los componentes y en diferentes sitios
 
 // Decorador Inyectable. Definición del Componente. Con las "{}" se le pasa un Objeto JSON, no se cierra con ";" porque no es una función
 // El Decorador lo que hace es aportar una Funcionalidad a una clase (que se define abajo), darle unas características concretas
@@ -30,7 +30,7 @@ export class ModalUploadService
 
   // Para poder emitir y que los otros componentes que usan este servicio se puedan "subscribir" para estar escuchando cuando se sube la imagen
   // Es para que la ventana "Modal" notifique a las otras pantallas que ya se subió una imagen
-  // "<any>" = Es el objeto Respuesta del Servicio de Carga de Imágenes
+  // "<any>" = Es el objeto Respuesta del Servicio de Carga de Imágenes, es decir, se puede regresar cualquier cosa (un JSON, un booleano, string, etc.)
   public notificacion = new EventEmitter<any>();
 
 

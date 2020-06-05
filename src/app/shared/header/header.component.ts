@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 
 
 // ++++++++++ SERVICIOS CREADOS POR NOSOTROS ++++++++++
-import { UsuarioService } from '../../services/service.index';
+import { UsuarioService , ModalUploadService } from '../../services/service.index';
 
 // ++++++++++ MODELOS CREADOS POR NOSOTROS ++++++++++
 import { Usuario } from '../../Modelos/usuario';
@@ -32,7 +32,8 @@ export class HeaderComponent implements OnInit
   // lo primero en ejecutarse es el Constructor.
   // Se utiliza para inicializar las propiedades de la clase, asignarles un valor o hacer una pequeña configuración
   constructor(
-   public _servicioUsuario: UsuarioService
+   public _servicioUsuario: UsuarioService,
+   public _servicioModalUpload: ModalUploadService  // "Inyectamos" todas las funcionalidades de la clase definida en el archivo "modal-upload.service.ts"
   )
   { }
 
@@ -42,6 +43,20 @@ export class HeaderComponent implements OnInit
   ngOnInit()
   {
     this.usuario = this._servicioUsuario.usuario;
+
+    // Nos “subscribimos” al observable para capturar el objeto que emite, en este caso es el usuario que se modificó
+    this._servicioModalUpload.notificacion.subscribe( ( res ) =>
+    {
+      // Se recibe al objeto "usuarios" de tipo Usuario, el nombreestá en Plural pero realmente es la información de 1 Usuario: el que se modificó
+      if ( res.usuarios )
+      {
+        // El Usuario que se modificó es el mismo que está logueado
+        if ( res.usuarios.email === this.usuario.email )
+        {
+          this.usuario = res.usuarios;  // Al Usuario Logueado le damos los valores del usuario que se acaba de modificar
+        }
+      }
+    });
   }
 
 }

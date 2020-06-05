@@ -56,7 +56,7 @@ export class ProfileComponent implements OnInit
   // "usuario: Usuario" = Recibimos un objeto de tipo Usuario
   guardarCambios( usuario: Usuario )
   {
-    // Asignamos los nuevos valores de lso camos a nuestro objeto "Usuario"
+    // Asignamos los nuevos valores de los camos a nuestro objeto "Usuario"
     this.usuario.nombre = usuario.nombre;
     // Sólo si no es un Usuario con Autenticación de Google permitimos que se cambie el valor del "email". Esto es reforzar el candado, porque en el HTML
     // se supone que el input EMAIL se deshabilitó

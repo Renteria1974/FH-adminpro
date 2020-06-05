@@ -16,10 +16,10 @@
         "card-body"       = Contenedor (que está dentro de otro con la etiqueta “card”) que contiene el texto a mostrar dentro de una “caja”
         "#input"          = Hacer referencia para a este campo para obtener lo que sea que esté escribiendo el Usuario
         "(keyup)"         = Cuando alguien presione o suelte uan tecla
-        "( input.value )" = Se manda de valor lo que se haya tecleado (se uasa la referencia local "#input")
+        "( input.value )" = Se manda de valor lo que se haya tecleado (se usa la referencia local "#input")
       -->
       <div class="card-body">
-          <input id="buscaUsuario" type="text" class="form-control" placeholder="Buscar Usuario...">
+          <input id="buscaMedico" type="text" class="form-control" placeholder="Buscar Médico...">
       </div>
     </div>
   </div>
@@ -64,7 +64,22 @@
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        <h3 class="card-title">Usuarios registrados ( <small>{{ totalRegistros }}</small> ) </h3>
+        <!-- Contenedor del Botón "Crear Medico" -->
+        <div class="text-right">
+          <!--
+            "rounded"       = Esquinas redondeadas
+            "float-right"   = El botón se mantiene "flotando" siempre al a derecha del contenedor
+            "waves-effect"  = Proporciona el efecto del clic, es un efect ode onda ya sea oscuro o claro
+            "waves-light"   = Efecto claro
+            "[routerLink]="['/medico','nuevo']"" = El "routerLink" nos va a llevar al componente "medico" con el argumento "nuevo"
+          -->
+          <button [routerLink]="['/medico','nuevo']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+            <i class="fa fa-plus"></i>
+            Crear Médico
+          </button>
+        </div>
+
+        <h3 class="card-title">Médicos registrados ( <small>{{ totalRegistros }}</small> ) </h3>
         <!--
           "table"       = Se crea uan tabla, se le dan automáticamente estilos CSS
           "table-hover" = Agrega el efecto “hover” al pasar el mouse sobre una fila
@@ -79,60 +94,48 @@
             <tr>
               <!-- "<th>" = Columna -->
               <th>Imagen</th>
-              <th>Email</th>
-              <th>Nombre del Usuario</th>
+              <th>Nombre de Médico</th>
+              <th>Hospital</th>
               <th>Estatus</th>
-              <th>Rol</th>
-              <th>Autent.</th>
               <th></th>
             </tr>
           </thead>
           <!-- Cuerpo de la Tabla -->
           <tbody>
-            <tr *ngFor="let usuario of usuarios">
-              <!-- <<<<<< Previwew de la Imagen del Usuario >>>>>>
+            <tr *ngFor="let medico of medicos">
+              <!-- <<<<<< Previwew de la Imagen del Médico >>>>>>
                   "img-70"      = Clase definida en el archivo "styles.css" que está dentro de la carpeta "src"
                 -->
               <td class="img-70">
-                <!-- <<<<<< Previwew de la Imagen del Usuario >>>>>>
-                  "imagen"      = Es el nombre del "pipe" definido en el archivo "imagen.pipe.ts" dentro de la carpeta "pipes", no especificamos
-                                el tipo porque recordemos que por default toma el tipo "usuarios"
-                  "img-50"      = Clase definida en el archivo "styles.css" que está dentro de la carpeta "src"
-                  "img-circle"  = Redondea la imagen
-                  "pointer"     = Clase para poner el puntero de la "manita" definida en "styles.css"
+                <!-- <<<<<< Previwew de la Imagen del Médico >>>>>>
+                  "imagen:'medico'" = Es el nombre del "pipe" definido en el archivo "imagen.pipe.ts" dentro de la carpeta "pipes", para este
+                                      caso sí especificamso de que tipo es (el tipo por default es 'usuarios')
+                  "img-50"            = Clase definida en el archivo "styles.css" que está dentro de la carpeta "src"
+                  "img-circle"        = Redondea la imagen
+                  "pointer"           = Clase para poner el puntero de la "manita" definida en "styles.css"
+                  <img (click)="mostrarModal( medico._id )" [src]="medico.img | imagen:'medico'" class="img-50 pointer">
                 -->
-                <img (click)="mostrarModal( usuario._id )" [src]="usuario.img | imagen" class="img-50 img-circle pointer">
+                <img [src]="medico.img | imagen:'medico'" class="img-50">
               </td>
-              <!-- <<<<<< Email  >>>>>> -->
-              <td>{{ usuario.email }}</td>
               <!-- <<<<<< Nombre >>>>>> -->
-              <td>{{ usuario.nombre }}</td>
-              <!-- <<<<<< Estatus >>>>>> -->
               <td>
-                <select [(ngModel)]="usuario.activo" name="activo" class="form-control">
-                  <option value=true>Habilitado</option>
-                  <option value=false>Inhabilitado</option>
-                </select>
+                <!-- "[(ngModel)]="medico.nombre"= Show DataBinding, al cambiar un valor en el Modelo de datos se ve reflejado en la vista y viceversa, de
+                  forma instantanea y reactiva
+                -->
+                <p *ngIf="medico._id != editable" (click)="activaEdicion(medico._id)">
+                  {{ medico.nombre }}
+                </p>
+                <input *ngIf="medico._id === editable" [(ngModel)]="medico.nombre" name="nombre" type="text" class="form-control" placeholder="Nombre del Médico">
               </td>
-              <!-- <<<<<< Rol >>>>>> -->
+              <!-- <<<<<< Hospital >>>>>> -->
               <td>
-                <select [(ngModel)]="usuario.role" name="role" class="form-control">
-                  <option value="ROLE_ADMIN">Administrador</option>
-                  <option value="ROLE_USER">Usuario</option>
-                </select>
-              </td>
-              <!-- <<<<<< Tipo de Autenticación >>>>>>
-                ""align-middle" = Alinea al centro verticalmente
-              -->
-              <td  class="align-middle">
-                <label *ngIf="usuario.google" class="label label-danger">Google</label>
-                <label *ngIf="!usuario.google" class="label label-info">Normal</label>
+                {{ medico.hospital.nombre }}
               </td>
               <!-- <<<<<< Botones para: Modificar, Desactivar, Reactivar >>>>>> -->
               <td>
-                <!-- Botón para Guardar Cambios al registro del Usuario -->
-                <button (click)="guardarUsuario( usuario )" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Actualizar Cambios">
-                  <i class="fa fa-save"></i>
+                <!-- Botón para Editar los valores de registro del Medico -->
+                <button [routerLink]="['/medico',medico._id]" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Esitar Registro">
+                  <i class="fa fa-edit"></i>
                 </button>
               </td>
             </tr>

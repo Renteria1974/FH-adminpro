@@ -14,10 +14,12 @@ import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
+import { HospitalesComponent } from './hospitales/hospitales.component';
+import { MedicosComponent } from './medicos/medicos.component';
+import { MedicoComponent } from './Medicos/medico.component';
 
 // ++++ SERVICIOS CREADOS POR NOSOTROS ++++
 import { LoginGuardGuard } from '../services/Guardias/login-guard.guard';
-
 
 
 
@@ -40,6 +42,9 @@ const pagesRoutes: Routes =
       { path: 'perfil', component: ProfileComponent, data: { titulo: 'Perfil de Usuario' } },
       // Mantenimientos
       { path: 'usuarios', component: UsuariosComponent, data: { titulo: 'Mantenimiento de Usuarios' } },
+      { path: 'hospitales', component: HospitalesComponent, data: { titulo: 'Mantenimiento de Hospitales' } },
+      { path: 'medicos', component: MedicosComponent, data: { titulo: 'Mantenimiento de Médicos' } },
+      { path: 'medico/:id', component: MedicoComponent, data: { titulo: 'Actualizar Médico' } },
 
       /* Al cargar un path vacio haga una redirección */
       { path: '', redirectTo: '/dashboard', pathMatch: 'full' }

@@ -1,0 +1,88 @@
+<!-- CONTENEDOR PARA LOS DATOS DEL MÉDICO -->
+<!-- RENGLON de la rejilla de Bootstrap
+  "row"             = Renglón de la rejila de BOOTSTRAP
+  "animated fadeIn" =
+-->
+<div class="row animated fadeIn">
+  <!-- COLUMNA de la rejilla de Bootstrap
+    "col-md-6" = En un display Mediano (Medium) hacia arriba ocupará 6 columnas de su contenedor padre
+  -->
+  <div class="col-md-6">
+    <div class="card card-body">
+      <h3 class="box-title m-b-0">Médico: {{ medico.nombre}}</h3>
+      <div class="row">
+        <div class="col-sm-12 col-xs-12">
+          <!--
+            "ngNativeValidate" = Activa las validaciones establecidad en el HTML, en este caso lo requerimos para los campos "required",
+                                para que al dar clic en el botón GUARDAR" si el campo no tiene datos aparezca el mensaje de alerta
+            "#f="ngForm""     = Creamos una referencia local al formulario
+            "( f )"           = Significa que vamos a mandar todo el formulario
+          -->
+          <form ngNativeValidate #f="ngForm" (ngSubmit)="guardarMedico( f )">
+            <!-- <<<<<< Nombre del Médico >>>>>> -->
+            <div class="form-group">
+                <label>Nombre del Médico</label>
+                <input [(ngModel)]="medico.nombre" name="nombre" type="text" class="form-control" placeholder="Nombre del Médico" required autocomplete="off">
+            </div>
+            <!-- <<<<<< Hospital >>>>>>-->
+            <div class="form-group">
+              <label>Hospital</label>
+              <!--
+                "(change)"            = Al detectarse un cambio en la selecicón de un elemento del Listado se dispara el evento change
+                "$event.target.value" = Para este caso nos regresa el valor de ID del Hospital seleccionado
+              -->
+              <select (change)="cambioHospital( $event.target.value )" [(ngModel)]="medico.hospital._id" name="hospital" class="form-control" required>
+                <option value="null">Seleccione Hospital</option>
+                <option *ngFor="let hospital of hospitales" [value]="hospital._id">
+                  {{ hospital.nombre }}
+                </option>
+              </select>
+            </div>
+            <!-- <<<<<< Estatus >>>>>> -->
+            <div class="form-group">
+              <label>Estatus</label>
+              <select [(ngModel)]="medico.activo" name="activo" class="form-control">
+                <option value=true>Habilitado</option>
+                <option value=false>Inhabilitado</option>
+              </select>
+            </div>
+
+            <!-- <<<<<< Botón GUARDAR >>>>>> -->
+            <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">
+              <i class="fa fa-save"></i>
+              Guardar
+            </button>
+            <!-- <<<<<< Botón CANCELAR >>>>>> -->
+            <a routerLink="/medicos" class="btn btn-inverse waves-effect waves-light">Cancelar</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- CONTENEDOR PARA EL RECUADRO DE LA INFORMACIÓN DEL HOSPITAL
+    COLUMNA de la rejilla de Bootstrap
+    "col-md-3" = En un display Mediano (Medium) hacia arriba ocupará 3 columnas de su contenedor padre
+  -->
+  <div class="col-md-3">
+    <div class="card card-body">
+      <h4 class="box-title m-b-0">Hospital</h4>
+
+      <!--
+        "rounded"   =  A la imagen le pone las esquinas redondeadas
+        "img-fluid" = Que la imagen se adapte al 100% del ancho y alto de su contenedor padre en caso de que dicha imagen sea mayor que su contenedor padre
+      -->
+      <img [src]="medico.hospital.img | imagen:'hospital'" class="rounded img-fluid">
+    </div>
+  </div>
+  <!-- CONTENEDOR PARA LA IMAGEN DE AVATAR DEL MÉDICO
+    COLUMNA de la rejilla de Bootstrap
+    "col-md-3" = En un display Mediano (Medium) hacia arriba ocupará 3 columnas de su contenedor padre
+  -->
+  <div class="col-md-3" *ngIf="medico._id">
+    <div class="card card-body">
+      <h4 class="box-title m-b-0">Fotografía</h4>
+
+      <img (click)="mostrarModal()" [src]="medico.img | imagen:'medico'" class="img-circle img-fluid pointer">
+    </div>
+  </div>
+</div>

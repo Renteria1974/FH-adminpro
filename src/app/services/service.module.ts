@@ -13,6 +13,8 @@ import {
   SidebarService,
   SharedService,
   UsuarioService,
+  HospitalService,
+  MedicoService,
   LoginGuardGuard,
   SubirArchivoService,
   ModalUploadService
@@ -41,6 +43,8 @@ import {
     SidebarService,
     SharedService,
     UsuarioService,
+    HospitalService,
+    MedicoService,
     LoginGuardGuard,
     SubirArchivoService,
     ModalUploadService

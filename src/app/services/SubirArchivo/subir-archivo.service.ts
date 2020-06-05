@@ -65,7 +65,7 @@ export class SubirArchivoService
       xhr.onreadystatechange = function()
       {
         // ---- Comprobación AJAX ----
-        // Estos es comu¿o un Observable cuando está ejecutándose, vamos a estar recibiendo información cada vez que el estado cambie
+        // Estos es como un Observable cuando está ejecutándose, vamos a estar recibiendo información cada vez que el estado cambie
         // pero sólo nos interesa un estado, el "readystate"
         // "=== 4" = Escuado ya terminó el proceso
         if ( xhr.readyState === 4 )
@@ -73,7 +73,7 @@ export class SubirArchivoService
           // El proceso se realizó correctamente, la imagen se subió corretctamente
           if ( xhr.status === 200 )
           {
-            console.log('Imagen Subida');
+            console.log('Imagen subida');
             // En este caso lo que nos devuelve es: ok, mensaje, objeto Usuario
             // "JSON.parse"   = Convertimos el string a objeto JSON
             // "xhr.response" = Decodificamos lo que nos devuelve el "xhr.response"

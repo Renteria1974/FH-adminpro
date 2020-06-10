@@ -74,8 +74,8 @@ export class ProfileComponent implements OnInit
       .subscribe( () => {}, () =>
       {
         // Despues de actualizar la BDD se verifica si el valor que tiene el EMAIL en el LocalStorage es diferente al que se tiene en la propiedad LOCAL
-        // si es así a la propiedad local sele da el valor del LocalStorage, esto es porque se notó que en los casos en que se queria modificar el email
-        // y se deseaba poner uno que ya tiene otro Usuario lógicamente serechaza esecambio pero en la información del Usuario que se tiene en el icono
+        // si es así a la propiedad local se le da el valor del LocalStorage, esto es porque se notó que en los casos en que se queria modificar el email
+        // y se deseaba poner uno que ya tiene otro Usuario lógicamente se rechaza ese cambio pero en la información del Usuario que se tiene en el icono
         // de la foto de la parte usperior derecha del Navegador se escribí ese email que se estaba rechazando
         if ( this.usuario.email !== JSON.parse( localStorage.getItem('usuario')).email )
         {

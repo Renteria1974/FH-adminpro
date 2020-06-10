@@ -137,7 +137,7 @@ export class HospitalesComponent implements OnInit
   // <<<<<< Método que hace la búsquede de Hospitales en base a una cadena de Busqueda >>>>>>
   buscarporNombre()
   {
-    // Seleccionamos la etiqueta "input" en el documento cuy ID es "buscaHospital"
+    // Seleccionamos la etiqueta "input" en el documento cuyo ID es "buscaHospital"
     const input = document.getElementById('buscaHospital');
 
     // En el evento indicado para el elemento seleccionado ejecutamos los pipes y luego el subscribe

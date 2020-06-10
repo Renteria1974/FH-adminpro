@@ -31,6 +31,7 @@ import { MedicoComponent } from './Medicos/medico.component';
 
 // ++++++++++ PIPES CREADOS POR NOSOTROS ++++++++++
 import { PipesModule } from '../Pipes/pipes.module';
+import { BusquedaComponent } from './busqueda/busqueda.component';
 
 
 
@@ -53,7 +54,8 @@ import { PipesModule } from '../Pipes/pipes.module';
      ModalUploadComponent,
      HospitalesComponent,
      MedicosComponent,
-     MedicoComponent
+     MedicoComponent,
+     BusquedaComponent
   ],
 
   // Para poder usar estas páginas (las declaradas en "declarations") por ostros componentes que se encuentran fuera de este módulo

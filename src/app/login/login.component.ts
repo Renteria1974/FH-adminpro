@@ -10,6 +10,9 @@ import { UsuarioService } from '../services/service.index';
 // ++++++++++ MODELOS CREADOS POR NOSOTROS ++++++++++
 import { Usuario } from '../Modelos/usuario';
 
+// ++++++++++ COMPONENTES DE TERCEROS ++++++++++
+import swal from 'sweetalert2';
+
 
 // Aquí mandamos llamar a la función "init_plugins" que declaramos en el archivo "custom.js" que está dentro de la carpeta "assets/js" y
 // que nos sirve para corregir un error que se nos estaba presentando con el "sidebar"
@@ -159,7 +162,14 @@ export class LoginComponent implements OnInit
     // "res"              = Es la respuesta que se recibe de la ejecución del método "Login", realmente no tenemos nada que hacer con ella
     // "this.router.navigate( [ '/dashboard' ] )" = Una vez que el Usuario se loguea redireccionamos a la página principal de la Aplicación
     this._servicioUsuario.Login( usuario , forma.value.recuerdame )
-      .subscribe( res => this.router.navigate( [ '/dashboard' ] )  );
+      .subscribe( res =>
+      {
+        this.router.navigate( [ '/dashboard' ] );
+      },
+      err =>
+      {
+        swal.fire('Error en el Login' , err.error.mensaje , 'error');
+      });
   }
 
 }

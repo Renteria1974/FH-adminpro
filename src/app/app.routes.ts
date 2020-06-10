@@ -13,13 +13,13 @@ import { NopagefoundComponent } from './shared/nopagefound/nopagefound.component
 // JSON de tipo "ruta" (con la configuración de la Ruta) */
 const appRouts: Routes =
 [
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+  { path: 'login' , component: LoginComponent },
+  { path: 'register' , component: RegisterComponent },
 
   /* Cuando se produzca un error al no existir el componente que estamos indicando por la URL que cargue otro Componente por defecto */
   // El Componente "Error" siempre debe ser el último que se declara, esto es a lo que sel lama: "RUTA 404"
   // Cuando se produzca un error al no existir el componente que estamos indicando por la URL que cargue otro Componente por defecto
-  {path: '**', component: NopagefoundComponent}
+  { path: '**' , component: NopagefoundComponent }
 ];
 
 
@@ -31,5 +31,5 @@ const appRouts: Routes =
   useHash:true = Esto añade a la ruta un "#", que es un viejo truco de los navegadores
                   para evitar que se recargue la página
 */
-export const APP_ROUTES = RouterModule.forRoot(appRouts, { useHash: true } );
+export const APP_ROUTES = RouterModule.forRoot( appRouts , { useHash: true } );
 

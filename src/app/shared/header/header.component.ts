@@ -1,13 +1,14 @@
 // ++++++++++ COMPONENTES DEL SISTEMA ++++++++++
 // Importamos el Móduo COMPONENT que nos permite crear un Componente y poder hacer uso del Decorador, Etc.
 import { Component, OnInit } from '@angular/core';
-
+import { Router } from '@angular/router';
 
 // ++++++++++ SERVICIOS CREADOS POR NOSOTROS ++++++++++
 import { UsuarioService , ModalUploadService } from '../../services/service.index';
 
 // ++++++++++ MODELOS CREADOS POR NOSOTROS ++++++++++
 import { Usuario } from '../../Modelos/usuario';
+
 
 
 // El Decorador lo que hace es aportar una Funcionalidad a una clase (que se define abajo), darle unas
@@ -33,7 +34,8 @@ export class HeaderComponent implements OnInit
   // Se utiliza para inicializar las propiedades de la clase, asignarles un valor o hacer una pequeña configuración
   constructor(
    public _servicioUsuario: UsuarioService,
-   public _servicioModalUpload: ModalUploadService  // "Inyectamos" todas las funcionalidades de la clase definida en el archivo "modal-upload.service.ts"
+   public _servicioModalUpload: ModalUploadService, // "Inyectamos" todas las funcionalidades de la clase definida en el archivo "modal-upload.service.ts"
+   public router: Router
   )
   { }
 
@@ -57,6 +59,19 @@ export class HeaderComponent implements OnInit
         }
       }
     });
+  }
+
+
+
+  // <<<<<< Método para hacer la búsqueda de Coincidencis en las Colecciones: Usuarios, Médicos y Hospitales >>>>>>
+  buscar( termino: string )
+  {
+    // "encodeURIComponent" = Usada para que en una cadena así: "20/20" no marque error por el "/" (lo concierte en: %2F). Esta función codifica
+                            // los siguientes caracteres especiales: , / ? : @ & = + $ #
+    let encoded = encodeURIComponent(termino);
+
+    // Redireccionamos a la pantalla del Buscador
+    this.router.navigate( ['/busqueda' , encoded ] );
   }
 
 }

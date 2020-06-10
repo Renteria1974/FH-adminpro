@@ -8,6 +8,7 @@
 // "export" = Exportamos los servicios, de manera que si el día de mañana estos archivos se mueven a otra carpeta entonces
 //            sólo modificamos el llamado en este lugar porque sólo aquí se tiene la referencia directa al path de su ubicación
 export { LoginGuardGuard } from './Guardias/login-guard.guard';
+export { AdminGuard } from './Guardias/admin.guard';
 export { SettingsService } from './settings/settings.service';
 export { SharedService } from './shared/shared.service';
 export { SidebarService } from './shared/sidebar.service';
@@ -16,3 +17,4 @@ export { SubirArchivoService } from './SubirArchivo/subir-archivo.service';
 export { ModalUploadService } from '../components/modal-upload/modal-upload.service';
 export { HospitalService } from './Hospital/hospital.service';
 export { MedicoService } from './Medico/medico.service';
+

@@ -141,7 +141,17 @@ export class RegisterComponent implements OnInit
                           // pueda "disparar"
     // "res"              = Es la repsuesta que se recibe de la ejecución del método "crearUsuario"
     this._servicioUsuario.crearUsuario( usuario )
-      .subscribe( res => this.router.navigate( ['/login'] ) ); // Una vez que se haya guardado el Nuevo Usuario Redireccionamos a la página de LOGIN
+      .subscribe( res =>
+        {
+          swal.fire('Correo Creado' , usuario.email , 'success');
+          this.router.navigate( ['/login'] );                       // Una vez que se haya guardado el Nuevo Usuario Redireccionamos a la página de LOGIN
+        },
+        err =>
+        {
+          // "err.error.errores.message" = Obtenemos toda esta cadena del error que configuramos en el BACKEND en el registro "Usuario.js" (que está
+          // dentro de la carpeta "Rutas") en el servicio APP.POST ue usamos para registrar al Nuevo Usuario en la BDD
+          swal.fire('Error en el Login' , err.error.errores.message , 'error');
+        });
 
   }
 

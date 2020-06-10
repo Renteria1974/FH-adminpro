@@ -4,16 +4,20 @@
 // con APIS, HTTP, Funcionalidades complejas y mediante la inyección de dependencias podemos utilizarlos en otros componentes principales
 
 // ++++ COMPONENTES DEL SISTEMA ++++
-import { Injectable } from '@angular/core';         // Importamos un Decorador Inyectable, para poder inyectar nuestra clase mediante la inyección de dependencias
-                                                    // en los componentes y en diferentes sitios
+import { Injectable } from '@angular/core';                       // Importamos un Decorador Inyectable, para poder inyectar nuestra clase mediante
+                                                                  // la inyección de dependencias en los componentes y en diferentes sitios
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';  // Para poder realizar peticiones HTTP
-import { map } from 'rxjs/operators';               // Para poder "tomar" las respuestas de las peticiones HTTP y transformarlas
+import { HttpClient } from '@angular/common/http';                // Para poder realizar peticiones HTTP
+import { map, catchError } from 'rxjs/operators';                 // Para poder "tomar" las respuestas de las peticiones HTTP y transformarlas
+
+import { throwError } from 'rxjs/internal/observable/throwError'; //  para el manejo del CAYCH y THROW en el control de errores
+
+
 
 // ++++ MODELOS CREADOS POR NOSOTROS ++++
 import { Usuario } from '../../Modelos/usuario';
 
-// ++++++++++ SERVICIOS CREADOSP OR NOSOTROS ++++++++++
+// ++++++++++ SERVICIOS CREADOS POR NOSOTROS ++++++++++
 import { SubirArchivoService } from '../SubirArchivo/subir-archivo.service';
 
 // ++++ ARCHIVOS DE CONFIGURACIÓN DEL SISTEMA ++++
@@ -41,6 +45,7 @@ export class UsuarioService
   // PROPIEDADES
   usuario:  Usuario;
   token:    string;
+  menu:     any = [];
 
 
   // CONSTRUCTOR : Es el primer método que se lanza al instanciar un objeto o instanciar la clase. Al llamar al componente
@@ -76,12 +81,14 @@ export class UsuarioService
       this.token    = localStorage.getItem( 'token' );                  // Obtenemos el valor del Token para asignarlo a nuestra Propiedad Local
       // "JSON.parse(" = Convertimos el string que tiene el LocalStorage a un objeto JSON
       this.usuario  = JSON.parse( localStorage.getItem( 'usuario' ) );  // Obtenemos el valor del objeto Usuario para asignarlo a nuestra Propiedad Local
+      this.menu     = JSON.parse( localStorage.getItem( 'menu' ) );     // Obtenemos el valor del objeto Usuario para asignarlo a nuestra Propiedad Local
     }
     // No hay elementos en el LocalStorage
     else
     {
       this.token    = '';
       this.usuario  = null;
+      this.menu     = [];
     }
   }
 
@@ -92,11 +99,13 @@ export class UsuarioService
   {
     this.usuario  = null;
     this.token    = '';
+    this.menu     = [];
 
     // Sólo removemos ITEM's específicos, no usamos el método ".clear" ya que por ejmplo en esta aplicación el Template manda al LocalStorage un item
     // llamado "ajustes" y col el método "clear" también sería borrado
     localStorage.removeItem('token');
     localStorage.removeItem('usuario');
+    localStorage.removeItem('menu');
 
     this.router.navigate( [ '/login' ] ); // Redireccionamos a la página de LOGIN
   }
@@ -104,18 +113,20 @@ export class UsuarioService
 
 
   // <<<<<< Método para guardar la sesión del Usuario en el LocalStorage >>>>>>
-  guardarStorage( id: string , token: string , usuario: Usuario )
+  guardarStorage( id: string , token: string , usuario: Usuario , menu: any )
   {
     // ** ESTABLECEMOS LA PERSISTENCIA DE DATOS, GUARDAMOS EN LA MEMORIA DEL NAVEGADOR, EN UNA ESPECIE DE SESION EL "USUARIO" **
-    // "localStorage.setItem"         = Guardamos un nuevo elemento en el LocalStorage, un nuevo índice, una nueva variable
-    // "id,token,usuario"             = índice, elemento
-    // "JSON.stringify(this.usuario)" = Convertimos el objeto a un JSON válido en formato String, El LocalStorage sólo permite guardar números o strings
+    // "localStorage.setItem" = Guardamos un nuevo elemento en el LocalStorage, un nuevo índice, una nueva variable
+    // "id,token,usuario"     = índice, elemento
+    // "JSON.stringify()"     = Convertimos el objeto a un JSON válido en formato String, El LocalStorage sólo permite guardar números o strings
     localStorage.setItem('id' , id );
     localStorage.setItem('token' , token );
     localStorage.setItem('usuario' , JSON.stringify( usuario ) );
+    localStorage.setItem('menu' , JSON.stringify( menu ) );
 
-    this.usuario = usuario;
-    this.token = token;
+    this.usuario  = usuario;
+    this.token    = token;
+    this.menu     =  menu;
   }
 
 
@@ -139,8 +150,7 @@ export class UsuarioService
       .pipe( map( ( res: any ) =>
       {
         // Recordemos que la respuesta que recibimos al LOGUEAR a un Usuario es: id, ok, token, usuario (objeto JSON que contiene: id, email, goorle, nombre, password, rol)
-        this.guardarStorage( res.id , res.token , res.usuario  );   // Guardamos la Sesión del Usuario en el LocalStorage
-
+        this.guardarStorage( res.id , res.token , res.usuario , res.menu  );   // Guardamos la Sesión del Usuario en el LocalStorage
         return true;  // Esto es opcional es como indicar que todo salió bien
       }));
   }
@@ -179,9 +189,13 @@ export class UsuarioService
       .pipe( map( ( res: any ) =>
       {
         // Recordemos que la respuesta que recibimos al LOGUEAR a un Usuario es: id, ok, token, usuario (objeto JSON que contiene: id, email, goorle, nombre, password, rol)
-        this.guardarStorage( res.id , res.token , res.usuario  );   // Guardamos la Sesión del Usuario en el LocalStorage
-
+        this.guardarStorage( res.id , res.token , res.usuario , res.menu  );   // Guardamos la Sesión del Usuario en el LocalStorage
         return true;  // Esto es opcional es como indicar que todo salió bien
+      }),
+      // Capturamos el error(err) el cuál es el que configuramos en el BACKEND, es el archivo "login.js" que está dentro el a carpeta "Rutas"
+      catchError( err =>
+      {
+        return throwError( err );
       }));
   }
 
@@ -203,8 +217,12 @@ export class UsuarioService
     return this.http.post( url , usuario )
       .pipe( map( ( res: any ) =>
       {
-        swal.fire('Correo Creado', usuario.email, 'success');
         return res.usuario;
+      }),
+      // Capturamos el error(err) el cuál es el que configuramos en el BACKEND, es el archivo "login.js" que está dentro el a carpeta "Rutas"
+      catchError( err =>
+      {
+        return throwError( err );
       }));
   }
 
@@ -232,13 +250,20 @@ export class UsuarioService
         // El Usuario que se está modificando es el mismo que está Logueado, entonces actualizamos el LocalStorage
         if ( usuario._id === this.usuario._id )
         {
-          let usuarioDB: Usuario = res.usuario;                           // A nuestra variable local le asignamos el objeto nuevo que nos regresa el método "map"
-          this.guardarStorage( usuarioDB._id , this.token , usuarioDB );  // Actualizamos el LocalStorage con los nuevos datos del Usuario
+          let usuarioDB: Usuario = res.usuario;                                       // A nuestra variable local le asignamos el objeto nuevo que nos regresa el método "map"
+          this.guardarStorage( usuarioDB._id , this.token , usuarioDB , this.menu );  // Actualizamos el LocalStorage con los nuevos datos del Usuario
         }
 
-        swal.fire('Usuario Actualizado !!!', usuario.nombre, 'success');
+        swal.fire('Usuario Actualizado !!!' , usuario.nombre , 'success');
 
         return true;
+      }),
+      // Capturamos el error(err) el cuál es el que configuramos en el BACKEND, es el archivo "login.js" que está dentro el a carpeta "Rutas"
+      catchError( err =>
+      {
+        // console.log(err);
+        swal.fire('Error en el Login' , err.error.errores.message , 'error');
+        return throwError( err );
       }));
 
   }
@@ -259,15 +284,15 @@ export class UsuarioService
       // Recordemos que el método "subirArchivo" nos regresa una PROMESA, así definimos
       // Usamos el método "then" para capturar la respuesta que nos llegue
       // "(res: any)" = Función de callback que nos devuelve una respuesta(res)
-      .then( (res: any) =>
+      .then( ( res: any ) =>
       {
         // A nuestro usuario logueado le asignamos el nombre de la imagen de su avatar
         this.usuario.img = res.usuarios.img;
 
-        swal.fire('Imagen Actualizada !!!', this.usuario.nombre, 'success');  // Ponemos un mensaje en Pantalla
+        swal.fire('Imagen Actualizada !!!' , this.usuario.nombre , 'success');  // Ponemos un mensaje en Pantalla
 
         // Actualizamos en el LOCALSTORAGE
-        this.guardarStorage( id , this.token , this.usuario );
+        this.guardarStorage( id , this.token , this.usuario , this.menu );
 
       })
       // Si algo sale mal disparamos el ".catch"
@@ -332,7 +357,7 @@ export class UsuarioService
     return this.http.delete( url )
     .pipe( map( ( res: any ) =>
     {
-      swal.fire('Usuario Borrado !!!', 'El Usuario ha sido ELiminado Correctamente', 'success');
+      swal.fire('Usuario Borrado !!!' , 'El Usuario ha sido ELiminado Correctamente' , 'success');
       return true;
     }));
   }

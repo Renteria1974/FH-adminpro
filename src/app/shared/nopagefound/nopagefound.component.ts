@@ -12,7 +12,32 @@ declare function init_plugins();
 @Component({
   selector: 'app-nopagefound',                  // Etiqueta final donde se va a cargar este componente
   templateUrl: './nopagefound.component.html',  // Plantilla asociada al componente
-  styles: []
+  styles: [`
+    .error-box
+    {
+      height: 100%;
+      position: fixed;
+      background: url(../../../assets/images/background/error-bg.jpg) no-repeat center center #fff;
+      width: 100%;
+    }
+    .error-box .footer
+    {
+      width: 100%;
+      left: 0px;
+      right: 0px;
+    }
+    .error-body
+    {
+      padding-top: 5%;
+    }
+    .error-body h1
+    {
+      font-size: 210px;
+      font-weight: 900;
+      text-shadow: 4px 4px 0 #ffffff, 6px 6px 0 #263238;
+      line-height: 210px;
+    }
+  `]
 })
 
 
@@ -23,6 +48,10 @@ declare function init_plugins();
 // aunque por buena costumbre de programación hacer buen uso de ese tipo de declaraciones
 export class NopagefoundComponent implements OnInit
 {
+  // PROPIEDADES
+  anio: number = new Date().getFullYear();  // Obtenemos el año
+
+
   // CONSTRUCTOR : Es el primer método que se lanza al instanciar un objeto o instanciar la clase. Al llamar al componente
   // lo primero en ejecutarse es el Constructor.
   // Se utiliza para inicializar las propiedades de la clase, asignarles un valor o hacer una pequeña configuración

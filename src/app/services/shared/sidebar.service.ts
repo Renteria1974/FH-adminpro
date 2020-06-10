@@ -8,6 +8,10 @@
 // en los componentes y en diferentes sitios
 import { Injectable } from '@angular/core';
 
+// ++++ SERVICIOS CREADOS POR NOSOTROS ++++
+import { UsuarioService } from '../Usuario/usuario.service';
+
+
 // Decorador Inyectable. Definición del Componente. Con las "{}" se le pasa un Objeto JSON, no se cierra con ";" porque no es una función
 // El Decorador lo que hace es aportar una Funcionalidad a una clase (que se define abajo), darle unas características concretas
 // que modifican  su comportamiento, en pocas palabras, con esta declaración indicamos queesta clase la vamso a poder inyectar
@@ -23,40 +27,25 @@ import { Injectable } from '@angular/core';
 // programación hacer buen uso de ese tipo de declaraciones
 export class SidebarService
 {
-  // Arreglo de objetos para controlar todas las opciones que tenga el menú lateral
-  menu: any =
-  [
-    {
-      titulo: 'Principal',
-      icono: 'mdi mdi-gauge',  // Este valor lo tomamos del archivo "sidebar.component.html"
-      submenu:
-      [
-        // Los valores de los "url" los sacamos del archivo "pages.routes.ts" que está en la carpeta "pages"
-        { titulo: 'Dashboard' , url: '/dashboard' },
-        { titulo: 'ProgressBar' , url: '/progress' },
-        { titulo: 'Gráficas' , url: '/graficas1' },
-        { titulo: 'Promesas' , url: '/promesas' },
-        { titulo: 'Rxjs' , url: '/rxjs' },
-      ]
-    },
-    {
-      titulo: 'Mantenimientos',
-      icono: 'mdi mdi-folder-lock-open',
-      submenu:
-      [
-        { titulo: 'Usuarios' , url: '/usuarios' },
-        { titulo: 'Hospitales' , url: '/hospitales'},
-        { titulo: 'Medicos' , url: '/medicos' }
-      ]
+  // PROPIEDADES
+  menu: any[] = [];
 
-    }
-  ];
 
   // CONSTRUCTOR : Es el primer método que se lanza al instanciar un objeto o instanciar la clase. Al llamar al componente
   // lo primero en ejecutarse es el Constructor.
   // Se utiliza para inicializar las propiedades de la clase, asignarles un valor o hacer una pequeña configuración
-  constructor()
+  constructor(
+    public _servicioUsuario: UsuarioService
+  )
   {
+  }
+
+
+
+  // <<<<<< Método para cargar generar el Menú Lateral Izquierdo desde el BACKEND >>>>>>
+  cargarMenu()
+  {
+    this.menu = this._servicioUsuario.menu; // Creamos el menú lateral izquierdo en base al tipo de Usuario que está logueado
   }
 
 

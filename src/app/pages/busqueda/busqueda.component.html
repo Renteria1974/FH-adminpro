@@ -1,0 +1,158 @@
+<!-- RENGLON de la rejilla de Bootstrap
+  "row" = Renglón de la rejila de BOOTSTRAP
+-->
+<div class="row">
+  <!-- ++++ USUARIOS ++++
+    COLUMNA de la rejilla de Bootstrap
+    "col-lg-4" = En cualquier display ocupará 4 columnas de su contenedor padre
+  -->
+  <div class="col-4">
+    <!-- El contenedor se prepara para poder ser una “caja” que pueden mostrar texto -->
+    <div class="card">
+      <!-- Contenedor (que está dentro de otro con la etiqueta “card”) que contiene el texto a mostrar dentro de una “caja” -->
+      <div class="card-body">
+        <!-- Se establece un texto como título de la card -->
+        <h4 class="card-title">Usuarios</h4>
+        <!--
+          "table"           =  A la tabla actual se le dan automáticamente estilos CSS
+          "table-hover"     = Agrega el efecto “hover” al pasar el mouse sobre una fila
+          " sinRegistrosU"  = En caso de no cumplirse la condición "if" y no mostrarse ente "table" entonces se muestra el elemento "sinRegistrosU"
+         -->
+        <table *ngIf="usuarios.length > 0; else sinRegistrosU" class="table table-hover">
+          <thead>
+            <!-- "<tr>" = Renglón -->
+            <tr>
+              <!-- "<th>" = Columna -->
+              <th>Foto</th>
+              <th>Nombre</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let usuario of usuarios" [routerLink]="['/usuarios']" class="pointer">
+              <td class="img-70">
+                <!-- <<<<<< Previwew de la Imagen del Usuario >>>>>>
+                  "imagen"      = Es el nombre del "pipe" definido en el archivo "imagen.pipe.ts" dentro de la carpeta "pipes", no especificamos
+                                el tipo porque recordemos que por default toma el tipo "usuarios"
+                  "img-50"      = Clase definida en el archivo "styles.css" que está dentro de la carpeta "src"
+                  "img-circle"  = Redondea la imagen
+                  "pointer"     = Clase para poner el puntero de la "manita" definida en "styles.css"
+                -->
+                <img [src]="usuario.img | imagen" class="img-50 img-circle pointer">
+              </td>
+              <!-- <<<<<< Nombre >>>>>> -->
+              <td>{{ usuario.nombre }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- "#sinRegistrosU" = Se muestra este "template" si la condición "if" (de donde se llama)no se cumplió
+          En los contenedores para MEDICOS y HOSPITALES no usamos esta técnica, aquí fué parap robar otra forma de hacerlo
+        -->
+        <ng-template #sinRegistrosU>
+          <!-- En caso de no haber coincidencias encontradas -->
+          <div class="alert alert-info">
+            No se encontraron Coincidencias !!
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+
+  <!-- ++++ MÉDICOS ++++
+    COLUMNA de la rejilla de Bootstrap
+    "col-lg-4" = En cualquier display ocupará 4 columnas de su contenedor padre
+  -->
+  <div class="col-4">
+    <!-- El contenedor se prepara para poder ser una “caja” que pueden mostrar texto -->
+    <div class="card">
+      <!-- Contenedor (que está dentro de otro con la etiqueta “card”) que contiene el texto a mostrar dentro de una “caja” -->
+      <div class="card-body">
+        <!-- Se establece un texto como título de la card -->
+        <h4 class="card-title">Médicos</h4>
+        <!--
+          "table"       =  A la tabla actual se le dan automáticamente estilos CSS
+          "table-hover" = Agrega el efecto “hover” al pasar el mouse sobre una fila
+         -->
+        <table *ngIf="medicos.length > 0" class="table table-hover">
+          <thead>
+            <!-- "<tr>" = Renglón -->
+            <tr>
+              <!-- "<th>" = Columna -->
+              <th>Foto</th>
+              <th>Nombre</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let medico of medicos" [routerLink]="['/medico' , medico._id]" class="pointer">
+              <td class="img-70">
+                <!-- <<<<<< Previwew de la Imagen del Usuario >>>>>>
+                  "imagen"      = Es el nombre del "pipe" definido en el archivo "imagen.pipe.ts" dentro de la carpeta "pipes", no especificamos
+                                el tipo porque recordemos que por default toma el tipo "usuarios"
+                  "img-50"      = Clase definida en el archivo "styles.css" que está dentro de la carpeta "src"
+                  "img-circle"  = Redondea la imagen
+                  "pointer"     = Clase para poner el puntero de la "manita" definida en "styles.css"
+                -->
+                <img [src]="medico.img | imagen:'medico'" class="img-50 img-circle pointer">
+              </td>
+              <!-- <<<<<< Nombre >>>>>> -->
+              <td>{{ medico.nombre }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- En caso de no haber coincidencias encontradas -->
+        <div *ngIf="medicos.length === 0" class="alert alert-info">
+          No se encontraron Coincidencias !!
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ++++ HOSPITALES ++++
+    COLUMNA de la rejilla de Bootstrap
+    "col-lg-4" = En cualquier display ocupará 4 columnas de su contenedor padre
+  -->
+  <div class="col-4">
+    <!-- El contenedor se prepara para poder ser una “caja” que pueden mostrar texto -->
+    <div class="card">
+      <!-- Contenedor (que está dentro de otro con la etiqueta “card”) que contiene el texto a mostrar dentro de una “caja” -->
+      <div class="card-body">
+        <!-- Se establece un texto como título de la card -->
+        <h4 class="card-title">Hospitales</h4>
+        <!--
+          "table"       =  A la tabla actual se le dan automáticamente estilos CSS
+          "table-hover" = Agrega el efecto “hover” al pasar el mouse sobre una fila
+         -->
+        <table *ngIf="hospitales.length > 0" class="table table-hover">
+          <thead>
+            <!-- "<tr>" = Renglón -->
+            <tr>
+              <!-- "<th>" = Columna -->
+              <th>Foto</th>
+              <th>Nombre</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let hospital of hospitales" [routerLink]="['/hospitales']" class="pointer">
+              <td class="img-70">
+                <!-- <<<<<< Previwew de la Imagen del Usuario >>>>>>
+                  "imagen"      = Es el nombre del "pipe" definido en el archivo "imagen.pipe.ts" dentro de la carpeta "pipes", no especificamos
+                                el tipo porque recordemos que por default toma el tipo "usuarios"
+                  "img-50"      = Clase definida en el archivo "styles.css" que está dentro de la carpeta "src"
+                  "img-circle"  = Redondea la imagen
+                  "pointer"     = Clase para poner el puntero de la "manita" definida en "styles.css"
+                -->
+                <img [src]="hospital.img | imagen:'hospital'" class="img-50 img-circle pointer">
+              </td>
+              <!-- <<<<<< Nombre >>>>>> -->
+              <td>{{ hospital.nombre }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- En caso de no haber coincidencias encontradas -->
+        <div *ngIf="hospitales.length === 0" class="alert alert-info">
+          No se encontraron Coincidencias !!
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

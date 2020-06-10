@@ -46,6 +46,8 @@ export class SidebarComponent implements OnInit
   {
     this.usuario = this._servicioUsuario.usuario;
 
+    this._sidebar.cargarMenu(); // Esto es para recargar el menú y que el menú lateral izquierdo sól ocargue las opciones alas que tiene acceso el Usuario logueado
+
     // Nos “subscribimos” al observable para capturar el objeto que emite, en este caso es el usuario que se modificó
     this._servicioModalUpload.notificacion.subscribe( ( res ) =>
     {

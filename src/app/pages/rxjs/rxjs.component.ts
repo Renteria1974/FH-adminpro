@@ -3,7 +3,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 // Para poder usar los "observables"
 import { Observable, Subscriber, Subscription } from 'rxjs';
 // Para poder manejar el "retry" en los "observables"
-import { retry, map, filter } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
 
 // El Decorador lo que hace es aportar una Funcionalidad a una clase (que se define abajo), darle unas
 // características concretas que modifican su comportamiento

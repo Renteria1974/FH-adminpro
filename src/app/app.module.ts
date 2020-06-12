@@ -18,9 +18,10 @@ import { ServiceModule } from './services/service.module';
 
 
 // ++++++++++ COMPONENTES CREADOS POR NOSOTROS ++++++++++
-import { PagesModule } from './pages/pages.module';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './login/register.component';
+import { PagesComponent } from './pages/pages.component';
+import { SharedModule } from './shared/shared.module';
 
 
 
@@ -31,7 +32,8 @@ import { RegisterComponent } from './login/register.component';
   [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    PagesComponent
   ],
 
   // Carga diferentes Módulos, Funcionalidades y Servicios del framework para cargarlos en la Aplicación
@@ -39,10 +41,10 @@ import { RegisterComponent } from './login/register.component';
   [
     BrowserModule,
     APP_ROUTES,
-    PagesModule,
     FormsModule,
     ReactiveFormsModule,
-    ServiceModule  // Contiene el llamado a los servicios que estan dentro de la carpeta "services"
+    ServiceModule,  // Contiene el llamado a los servicios que estan dentro de la carpeta "services"
+    SharedModule
   ],
 
   // Se cargan ciertos Servicios, Configuraciones

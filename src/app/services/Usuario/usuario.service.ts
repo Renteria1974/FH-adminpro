@@ -62,6 +62,41 @@ export class UsuarioService
 
 
 
+  // <<<<<< Método para Renovar el Token del Usuario que está Logueado >>>>>>
+  renuevaToken()
+  {
+    // "EntDesarrollo.URL_ServidorNode" = Constante definida en el archivo "Config/Config.ts" que contiene la URL base de nuestro Servidor Node Local
+    // "'/login/renuevaToken?token'"  = Es la ruta del Servicio para generar un nuevo Token al Usuario Logueado, Tal como lo tenemos declarado en el POSTMAN
+    let url: string = EntDesarrollo.URL_ServidorNode + '/login/renuevaToken';
+    url += '?token=' + this.token;
+
+    // return         = Deseamos ser notificados cuando se ejecute nuestro método POST. Regresamos un "Observador" al cual nos vamos a poder subscribir
+    // ".get"         = Porque la petición usada es un GET
+    // "url"          = URL completa de la Petición
+    // ".pipe(.map"   = Nos permite tomar la respuesta (res) y transformarla
+    // "res: any"     = Hay que ponerlo asi para que "res.id" no marque error
+    return this.http.get( url )
+      .pipe( map( ( res: any ) =>
+      {
+        this.token = res.token;                       // A nuestra propiedad Local le asignamos el valor del Nuevo Token que se acaba de generar
+
+        localStorage.setItem('token' , this.token );  // Grabamos en el LocalStorage el nuevo Token
+
+        console.log('Token ha sido Renovado');
+
+        return true;                                  // Esto es opcional es para indicarle a lo que sea que se "subscriba" que reciba un "true" al hacerlo
+      }),
+      // Capturamos el error(err) el cuál es el que configuramos en el BACKEND, es el archivo "login.js" que está dentro el a carpeta "Rutas"
+      catchError( err =>
+      {
+        this.router.navigate(['/login']);             // Redireccionamos al Usuario para uqe se vuelva a Loguear
+        swal.fire('No se pudo renovar Token' , 'Error al renovar Token' , 'error');
+        return throwError( err );
+      }));
+  }
+
+
+
   // <<<<<< Método para asegurarnos que el Usuario está Logueado >>>>>>
   estaLogueado()
   {

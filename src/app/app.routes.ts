@@ -1,12 +1,14 @@
 // Este fichero se genera para que la Aplicación pueda manejar varias páginas web
-
-// ++++ COMPONENTES DEL SISTEMA ++++
-import { RouterModule, Routes } from '@angular/router';
-
 // ++++++++++ COMPONENTES CREADOS POR NOSOTROS ++++++++++
+import { Routes , RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './login/register.component';
 import { NopagefoundComponent } from './shared/nopagefound/nopagefound.component';
+import { PagesComponent } from './pages/pages.component';
+
+// ++++++++++ SERVICIOS CREADOS POR NOSOTROS ++++++++++
+import { LoginGuardGuard } from './services/service.index';
+
 
 
 // Constante array de Objetos de tipo "Routes" que van a contener objetos
@@ -15,6 +17,12 @@ const appRouts: Routes =
 [
   { path: 'login' , component: LoginComponent },
   { path: 'register' , component: RegisterComponent },
+  {
+    path: '',
+    component: PagesComponent,
+    canActivate: [ LoginGuardGuard ],
+    loadChildren: './pages/pages.module#PagesModule'
+  },
 
   /* Cuando se produzca un error al no existir el componente que estamos indicando por la URL que cargue otro Componente por defecto */
   // El Componente "Error" siempre debe ser el último que se declara, esto es a lo que sel lama: "RUTA 404"

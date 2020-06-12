@@ -119,21 +119,14 @@
               </td>
               <!-- <<<<<< Nombre >>>>>> -->
               <td>
-                <!-- "[(ngModel)]="medico.nombre"= Show DataBinding, al cambiar un valor en el Modelo de datos se ve reflejado en la vista y viceversa, de
-                  forma instantanea y reactiva
-                -->
-                <p *ngIf="medico._id != editable" (click)="activaEdicion(medico._id)">
                   {{ medico.nombre }}
-                </p>
-                <input *ngIf="medico._id === editable" [(ngModel)]="medico.nombre" name="nombre" type="text" class="form-control" placeholder="Nombre del Médico">
               </td>
               <!-- <<<<<< Hospital >>>>>> -->
               <td>
                 {{ medico.hospital.nombre }}
               </td>
-              <!-- <<<<<< Botones para: Modificar, Desactivar, Reactivar >>>>>> -->
+              <!-- <<<<<< Botón para Editar el Registro del Médico >>>>>> -->
               <td>
-                <!-- Botón para Editar los valores de registro del Medico -->
                 <button [routerLink]="['/medico',medico._id]" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Editar Registro">
                   <i class="fa fa-edit"></i>
                 </button>
